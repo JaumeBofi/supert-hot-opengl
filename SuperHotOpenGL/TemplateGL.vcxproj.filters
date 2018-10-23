@@ -39,16 +39,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\source\shader_utils.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="settings.cpp">
-      <Filter>Archivos de código fuente\Foundation</Filter>
-    </ClCompile>
-    <ClCompile Include="source\shader_utils.cpp">
       <Filter>Archivos de código fuente\Foundation</Filter>
     </ClCompile>
   </ItemGroup>

@@ -11,10 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\source\shader_utils.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="settings.cpp" />
-    <ClCompile Include="source\shader_utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\settings.h" />

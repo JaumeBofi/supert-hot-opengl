@@ -5,14 +5,19 @@
 
 #include <settings.h>
 #include <shader.h>
+#include <model.h>
 
 // Settings
 Settings _settings = Settings();
 Shader* _mainShader;
+Model* model;
 
 void display() {
 	glClearColor(1.0, 0.0, 0.0, 0.1);
 	glClear(GL_COLOR_BUFFER_BIT);
+
+	// don't forget to enable shader before setting uniforms
+	_mainShader->use();
 
 	glutSwapBuffers();
 }
@@ -20,7 +25,8 @@ void display() {
 bool init_resources()
 {
 	_mainShader = new Shader((_settings.ShadersDirectory() + "superhot-gl.vs").c_str(), (_settings.ShadersDirectory() + "superhot-gl.fs").c_str());
-	return true;
+	model = new Model()
+	return true;	
 }
 
 int main(int argc, char* argv[]) {
@@ -41,9 +47,12 @@ int main(int argc, char* argv[]) {
 		exit(EXIT_FAILURE);
 	}
 
-	
-
+	init_resources();	
 	glutDisplayFunc(display);
+
+	glEnable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glutMainLoop();
 
 	return EXIT_SUCCESS;

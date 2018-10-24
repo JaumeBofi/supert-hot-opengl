@@ -13,8 +13,11 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="settings.cpp" />
+    <ClCompile Include="source\model.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers\mesh.h" />
+    <ClInclude Include="headers\model.h" />
     <ClInclude Include="headers\settings.h" />
     <ClInclude Include="headers\shader.h" />
   </ItemGroup>
@@ -58,7 +61,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\ProyectosPUCP\SuperHotOpenGL\supert-hot-opengl\assimp-4.1.0\include;D:\ProyectosPUCP\SuperHotOpenGL\supert-hot-opengl\SuperHotOpenGL\headers;D:\ProyectosPUCP\SuperHotOpenGL\supert-hot-opengl\assimp-4.1.0\lib;..\glm-0.9.7.3\glm;..\freeglut\include;..\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\ProyectosPUCP\SuperHotOpenGL\supert-hot-opengl\soil\src;D:\ProyectosPUCP\SuperHotOpenGL\supert-hot-opengl\assimp-4.1.0\include;D:\ProyectosPUCP\SuperHotOpenGL\supert-hot-opengl\SuperHotOpenGL\headers;D:\ProyectosPUCP\SuperHotOpenGL\supert-hot-opengl\assimp-4.1.0\lib;..\glm-0.9.7.3\glm;..\freeglut\include;..\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>

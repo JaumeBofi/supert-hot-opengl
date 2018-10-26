@@ -40,6 +40,9 @@
     <Filter Include="Archivos de encabezado\Model">
       <UniqueIdentifier>{3a28ac7e-c7dc-4671-8415-f9ba274e8fd4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de código fuente\Foundation\SOIL">
+      <UniqueIdentifier>{79079d8f-ef6b-4383-8699-b9384bfd0169}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -50,6 +53,15 @@
     </ClCompile>
     <ClCompile Include="source\model.cpp">
       <Filter>Archivos de código fuente\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="source\camera.cpp">
+      <Filter>Archivos de código fuente\Foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\soil\src\image_helper.c">
+      <Filter>Archivos de código fuente\Foundation\SOIL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\soil\src\stb_image_aug.c">
+      <Filter>Archivos de código fuente\Foundation\SOIL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="headers\model.h">
       <Filter>Archivos de encabezado\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\camera.h">
+      <Filter>Archivos de encabezado\Foundation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

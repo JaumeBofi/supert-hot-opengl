@@ -31,3 +31,4 @@
 *.out
 *.app
 SuperHotOpenGL/source/shader_utils.cpp
+.vs/SuperHotOpenGL/v15/Browse.VC.opendb

@@ -11,11 +11,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\soil\src\image_helper.c" />
+    <ClCompile Include="..\soil\src\stb_image_aug.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="settings.cpp" />
+    <ClCompile Include="source\camera.cpp" />
     <ClCompile Include="source\model.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers\camera.h" />
     <ClInclude Include="headers\mesh.h" />
     <ClInclude Include="headers\model.h" />
     <ClInclude Include="headers\settings.h" />
@@ -55,19 +59,22 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\ProyectosPUCP\SuperHotOpenGL\supert-hot-opengl\soil\src;D:\ProyectosPUCP\SuperHotOpenGL\supert-hot-opengl\assimp-4.1.0\include;D:\ProyectosPUCP\SuperHotOpenGL\supert-hot-opengl\SuperHotOpenGL\headers;D:\ProyectosPUCP\SuperHotOpenGL\supert-hot-opengl\assimp-4.1.0\lib;..\glm-0.9.7.3\glm;..\freeglut\include;..\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\GLFW;..\soil\include;..\soil\src;..\assimp-4.1.0\include;..\SuperHotOpenGL\headers;..\glm-0.9.7.3\glm;..\freeglut\include;..\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\freeglut\lib;..\glew-2.1.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;freeglut.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\GLFW;..\assimp-4.1.0\lib;..\freeglut\lib;..\glew-2.1.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;freeglut.lib;assimp-vc120-mt.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

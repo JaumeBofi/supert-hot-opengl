@@ -2,15 +2,12 @@
 #include <settings.h>
 
 
-Settings::Settings()
+
+Settings::Settings(unsigned int scrHeight, unsigned int scrWidth, std::string shadersDirectory)
 {
-
-}
-
-Settings::Settings(unsigned int scrHeight = SCR_HEIGHT, unsigned int scrWidth = SCR_WIDTH,std::string shadersDirectory = SHADERSDIRECTORY)
-{
-	
-
+	ScrWidth(scrWidth);
+	ScrHeight(scrHeight);
+	ShadersDirectory(shadersDirectory);
 }
 
 

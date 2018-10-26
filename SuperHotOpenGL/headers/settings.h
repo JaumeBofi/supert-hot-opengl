@@ -3,7 +3,7 @@
 
 const int SCR_WIDTH = 800;
 const int SCR_HEIGHT = 600;
-const std::string SHADERSDIRECTORY = "..\SuperHotOpenGL\source";
+const std::string SHADERSDIRECTORY = "..\\SuperHotOpenGL\\source\\";
 
 
 class Settings
@@ -15,9 +15,8 @@ private:
 	std::string _shadersDirectory = SHADERSDIRECTORY;
 
 public:
-
-	Settings();
-	Settings(unsigned int scrHeight,unsigned int scrWidth,std::string shadersDirectory);
+	
+	Settings(unsigned int scrHeight = SCR_HEIGHT, unsigned int scrWidth = SCR_WIDTH, std::string shadersDirectory = SHADERSDIRECTORY);
 	
 	unsigned int ScrWidth() const { return _scrWidth; }
 	void ScrWidth(unsigned int val) { _scrWidth = val; }

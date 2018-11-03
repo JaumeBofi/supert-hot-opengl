@@ -33,7 +33,7 @@ glm::mat4 Camera::GetViewMatrix()
 }
 
 
-void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime)
+void Camera::ProcessKeyboardTest(Camera_Movement direction, float deltaTime)
 {
 	float velocity = MovementSpeed * deltaTime;
 	if (direction == FORWARD)
@@ -45,20 +45,22 @@ void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime)
 	if (direction == RIGHT)
 		Position += Right * velocity;
 }
-void Camera::ProcessKeyboard2(Camera_Movement direction, float deltaTime)
+void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime)
 {
 	float velocity = MovementSpeed * deltaTime;
-	if (direction == FORWARD)
-		Position.x  += Front.x * velocity;
-	    Position.z += Front.z * velocity;
-	if (direction == BACKWARD)
-		//Position -= Front * velocity;
-	    Position.x -= Front.x * velocity;
-	    Position.z -= Front.z * velocity;
+	if (direction == FORWARD){
+		Position.z += Front.z * velocity;
+		Position.x += Front.x * velocity;
+	}
+	if (direction == BACKWARD) {		
+		Position.x -= Front.x * velocity;
+		Position.z -= Front.z * velocity;
+    }
 	if (direction == LEFT)
 		Position -= Right * velocity;
 	if (direction == RIGHT)
 		Position += Right * velocity;
+	updateCameraVectors();
 }
 
 float sqrtPower(double x, double y)

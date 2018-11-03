@@ -96,10 +96,32 @@ void mouseMovement(int xpos, int ypos) {
 }
 
 void keyboardInput(unsigned char keycode, int x, int y) {
-	if (keycode == 'q') {
-		prueba = !prueba;
-	}
+	    if (keycode == 'q') {
+		    prueba = !prueba;
+	    }
 		if (prueba) {
+			printf("%d\n", deltaTime);
+			switch (keycode)
+			{
+			case 's': // Escape key
+				camera.ProcessKeyboardTest(BACKWARD, deltaTime);
+				break;
+			case 'w': // Escape key
+				camera.ProcessKeyboardTest(FORWARD, deltaTime);
+				break;
+			case 'a': // Escape key
+				camera.ProcessKeyboardTest(LEFT, deltaTime);
+				break;
+			case 'd': // Escape key
+				camera.ProcessKeyboardTest(RIGHT, deltaTime);
+				break;
+			case 27: // Escape key			
+				exit(EXIT_SUCCESS);
+				break;
+			}
+			
+		}
+		else  {
 			printf("%d\n", deltaTime);
 			switch (keycode)
 			{
@@ -119,32 +141,10 @@ void keyboardInput(unsigned char keycode, int x, int y) {
 				exit(EXIT_SUCCESS);
 				break;
 			}
-			glutPostRedisplay();
-		}
-		if (!prueba) {
-			printf("%d\n", deltaTime);
-			switch (keycode)
-			{
-			case 's': // Escape key
-				camera.ProcessKeyboard2(BACKWARD, deltaTime);
-				break;
-			case 'w': // Escape key
-				camera.ProcessKeyboard2(FORWARD, deltaTime);
-				break;
-			case 'a': // Escape key
-				camera.ProcessKeyboard2(LEFT, deltaTime);
-				break;
-			case 'd': // Escape key
-				camera.ProcessKeyboard2(RIGHT, deltaTime);
-				break;
-			case 27: // Escape key			
-				exit(EXIT_SUCCESS);
-				break;
-			}
-			glutPostRedisplay();
+			
 		}
 	
-	
+		glutPostRedisplay();
 	
 	
 	

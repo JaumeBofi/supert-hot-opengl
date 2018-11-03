@@ -19,6 +19,7 @@ Camera camera(glm::vec3(0.0f, 0.0f, 0.0f));
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
+bool prueba = false;
 
 // Timing
 int oldTimeSinceStart = 0;
@@ -95,30 +96,64 @@ void mouseMovement(int xpos, int ypos) {
 }
 
 void keyboardInput(unsigned char keycode, int x, int y) {
-
-	printf("%d\n", deltaTime);
-	switch(keycode)
-	{
-    case 's': // Escape key
-		camera.ProcessKeyboard(BACKWARD, deltaTime);
-		break;
-	case 'w': // Escape key
-		camera.ProcessKeyboard(FORWARD, deltaTime);
-		break;
-	case 'a': // Escape key
-		camera.ProcessKeyboard(LEFT, deltaTime);
-		break;
-	case 'd': // Escape key
-		camera.ProcessKeyboard(RIGHT, deltaTime);
-		break;
-	case 27: // Escape key			
-		exit(EXIT_SUCCESS);
-		break;		
-	}			
-	glutPostRedisplay();
+	if (keycode == 'q') {
+		prueba = !prueba;
+	}
+		if (prueba) {
+			printf("%d\n", deltaTime);
+			switch (keycode)
+			{
+			case 's': // Escape key
+				camera.ProcessKeyboard(BACKWARD, deltaTime);
+				break;
+			case 'w': // Escape key
+				camera.ProcessKeyboard(FORWARD, deltaTime);
+				break;
+			case 'a': // Escape key
+				camera.ProcessKeyboard(LEFT, deltaTime);
+				break;
+			case 'd': // Escape key
+				camera.ProcessKeyboard(RIGHT, deltaTime);
+				break;
+			case 27: // Escape key			
+				exit(EXIT_SUCCESS);
+				break;
+			}
+			glutPostRedisplay();
+		}
+		if (!prueba) {
+			printf("%d\n", deltaTime);
+			switch (keycode)
+			{
+			case 's': // Escape key
+				camera.ProcessKeyboard2(BACKWARD, deltaTime);
+				break;
+			case 'w': // Escape key
+				camera.ProcessKeyboard2(FORWARD, deltaTime);
+				break;
+			case 'a': // Escape key
+				camera.ProcessKeyboard2(LEFT, deltaTime);
+				break;
+			case 'd': // Escape key
+				camera.ProcessKeyboard2(RIGHT, deltaTime);
+				break;
+			case 27: // Escape key			
+				exit(EXIT_SUCCESS);
+				break;
+			}
+			glutPostRedisplay();
+		}
+	
+	
+	
+	
+	
+	
+	
+	
 }
 
-void onIddle()
+void onIdle()
 {
 	/*int timeSinceStart = glutGet(GLUT_ELAPSED_TIME);	
 	deltaTime = timeSinceStart - oldTimeSinceStart;
@@ -153,7 +188,7 @@ int main(int argc, char* argv[]) {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glutKeyboardFunc(keyboardInput);
 	glutPassiveMotionFunc(mouseMovement);
-	glutIdleFunc(onIddle);
+	glutIdleFunc(onIdle);
 	glutMainLoop();
 
 	return EXIT_SUCCESS;

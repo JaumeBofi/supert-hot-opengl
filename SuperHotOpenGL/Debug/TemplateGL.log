@@ -1,33 +1,13 @@
 ﻿d:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(387,5): warning MSB8028: El directorio intermedio (Debug\) contiene archivos compartidos de otro proyecto (TemplateGL.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
-  stb_image_aug.c
-c:\temp\nueva carpeta (2)\supert-hot-opengl\soil\src\stbi_dds_aug_c.h(362): warning C4018: '>': no coinciden signed/unsigned
-c:\temp\nueva carpeta (2)\supert-hot-opengl\soil\src\stbi_dds_aug_c.h(366): warning C4018: '>': no coinciden signed/unsigned
-c:\temp\nueva carpeta (2)\supert-hot-opengl\soil\src\stbi_dds_aug_c.h(390): warning C4018: '<': no coinciden signed/unsigned
-c:\temp\nueva carpeta (2)\supert-hot-opengl\soil\src\stbi_dds_aug_c.h(427): warning C4018: '<': no coinciden signed/unsigned
-  image_helper.c
-c:\temp\nueva carpeta (2)\supert-hot-opengl\soil\src\image_helper.c(325): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-c:\temp\nueva carpeta (2)\supert-hot-opengl\soil\src\image_helper.c(366): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-c:\temp\nueva carpeta (2)\supert-hot-opengl\soil\src\image_helper.c(373): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-c:\temp\nueva carpeta (2)\supert-hot-opengl\soil\src\image_helper.c(415): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-c:\temp\nueva carpeta (2)\supert-hot-opengl\soil\src\image_helper.c(422): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-  Generando código...
-  model.cpp
-c:\temp\nueva carpeta (2)\supert-hot-opengl\superhotopengl\headers\shader.h(64): warning C4101: 'infoLog': variable local sin referencia
-c:\temp\nueva carpeta (2)\supert-hot-opengl\superhotopengl\headers\shader.h(63): warning C4101: 'success': variable local sin referencia
-c:\temp\nueva carpeta (2)\supert-hot-opengl\superhotopengl\source\model.cpp(84): warning C4018: '<': no coinciden signed/unsigned
-c:\temp\nueva carpeta (2)\supert-hot-opengl\superhotopengl\source\model.cpp(106): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-  camera.cpp
-c:\temp\nueva carpeta (2)\supert-hot-opengl\superhotopengl\source\camera.cpp(51): warning C4244: 'return': conversión de 'double' a 'float'; posible pérdida de datos
-  settings.cpp
   main.cpp
-c:\temp\nueva carpeta (2)\supert-hot-opengl\superhotopengl\headers\shader.h(64): warning C4101: 'infoLog': variable local sin referencia
-c:\temp\nueva carpeta (2)\supert-hot-opengl\superhotopengl\headers\shader.h(63): warning C4101: 'success': variable local sin referencia
-c:\temp\nueva carpeta (2)\supert-hot-opengl\superhotopengl\main.cpp(28): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
-c:\temp\nueva carpeta (2)\supert-hot-opengl\superhotopengl\main.cpp(82): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-c:\temp\nueva carpeta (2)\supert-hot-opengl\superhotopengl\main.cpp(83): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-c:\temp\nueva carpeta (2)\supert-hot-opengl\superhotopengl\main.cpp(90): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-c:\temp\nueva carpeta (2)\supert-hot-opengl\superhotopengl\main.cpp(91): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-c:\temp\nueva carpeta (2)\supert-hot-opengl\superhotopengl\main.cpp(99): warning C4477: 'printf' : la cadena de formato '%d' requiere un argumento de tipo 'int', pero el argumento variádico 1 tiene el tipo 'double'
-  Generando código...
-  TemplateGL.vcxproj -> C:\temp\Nueva carpeta (2)\supert-hot-opengl\Debug\SuperHotOpenGL.exe
-  TemplateGL.vcxproj -> C:\temp\Nueva carpeta (2)\supert-hot-opengl\Debug\SuperHotOpenGL.pdb (Partial PDB)
+c:\users\alulab14.inf.008\desktop\supert-hot-opengl\superhotopengl\headers\shader.h(64): warning C4101: 'infoLog': variable local sin referencia
+c:\users\alulab14.inf.008\desktop\supert-hot-opengl\superhotopengl\headers\shader.h(63): warning C4101: 'success': variable local sin referencia
+c:\users\alulab14.inf.008\desktop\supert-hot-opengl\superhotopengl\main.cpp(29): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
+c:\users\alulab14.inf.008\desktop\supert-hot-opengl\superhotopengl\main.cpp(83): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\alulab14.inf.008\desktop\supert-hot-opengl\superhotopengl\main.cpp(84): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\alulab14.inf.008\desktop\supert-hot-opengl\superhotopengl\main.cpp(91): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\alulab14.inf.008\desktop\supert-hot-opengl\superhotopengl\main.cpp(92): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\alulab14.inf.008\desktop\supert-hot-opengl\superhotopengl\main.cpp(103): warning C4477: 'printf' : la cadena de formato '%d' requiere un argumento de tipo 'int', pero el argumento variádico 1 tiene el tipo 'double'
+c:\users\alulab14.inf.008\desktop\supert-hot-opengl\superhotopengl\main.cpp(125): warning C4477: 'printf' : la cadena de formato '%d' requiere un argumento de tipo 'int', pero el argumento variádico 1 tiene el tipo 'double'
+  TemplateGL.vcxproj -> C:\Users\alulab14.INF.008\Desktop\supert-hot-opengl\Debug\SuperHotOpenGL.exe
+  TemplateGL.vcxproj -> C:\Users\alulab14.INF.008\Desktop\supert-hot-opengl\Debug\SuperHotOpenGL.pdb (Partial PDB)

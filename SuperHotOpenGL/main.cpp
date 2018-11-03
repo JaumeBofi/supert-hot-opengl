@@ -15,7 +15,7 @@ Shader* mainShader;
 Model* model;
 
 // Camera
-Camera camera(glm::vec3(0.0f, 0.0f, 0.0f));
+Camera camera(glm::vec3(0.0f, -0.035449f, 0.0f));
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
@@ -53,7 +53,7 @@ void onDisplay() {
 	mainShader->use();
 
 	// view/projection transformations
-	glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 200.0f);
+	glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.001f, 200.0f);
 	glm::mat4 view = camera.GetViewMatrix();
 	mainShader->setMat4("projection", projection);
 	mainShader->setMat4("view", view);
@@ -72,7 +72,9 @@ void onDisplay() {
 
 	mainShader->setMat4("model", mod);
 	model->Draw(*mainShader);
-
+	printf("%f posicion camara x\n", camera.Position.x);
+	printf("%f posicion camara y\n", camera.Position.y);
+	printf("%f posicion camara z\n", camera.Position.z);
 	glutSwapBuffers();
 }
 

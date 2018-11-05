@@ -63,6 +63,9 @@
     <ClCompile Include="..\soil\src\stb_image_aug.c">
       <Filter>Archivos de código fuente\Foundation\SOIL</Filter>
     </ClCompile>
+    <ClCompile Include="Bala.cpp">
+      <Filter>Archivos de código fuente\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\settings.h">
@@ -79,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="headers\camera.h">
       <Filter>Archivos de encabezado\Foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="Bala.h">
+      <Filter>Archivos de encabezado\Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

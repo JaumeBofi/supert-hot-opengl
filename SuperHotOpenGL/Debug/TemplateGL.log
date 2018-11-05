@@ -2,12 +2,16 @@
   main.cpp
 c:\users\alulab14.inf.005\desktop\supert-hot-opengl\superhotopengl\headers\shader.h(64): warning C4101: 'infoLog': variable local sin referencia
 c:\users\alulab14.inf.005\desktop\supert-hot-opengl\superhotopengl\headers\shader.h(63): warning C4101: 'success': variable local sin referencia
-c:\users\alulab14.inf.005\desktop\supert-hot-opengl\superhotopengl\main.cpp(35): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
-c:\users\alulab14.inf.005\desktop\supert-hot-opengl\superhotopengl\main.cpp(116): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-c:\users\alulab14.inf.005\desktop\supert-hot-opengl\superhotopengl\main.cpp(117): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-c:\users\alulab14.inf.005\desktop\supert-hot-opengl\superhotopengl\main.cpp(124): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-c:\users\alulab14.inf.005\desktop\supert-hot-opengl\superhotopengl\main.cpp(125): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-c:\users\alulab14.inf.005\desktop\supert-hot-opengl\superhotopengl\main.cpp(138): warning C4477: 'printf' : la cadena de formato '%d' requiere un argumento de tipo 'int', pero el argumento variádico 1 tiene el tipo 'double'
-c:\users\alulab14.inf.005\desktop\supert-hot-opengl\superhotopengl\main.cpp(160): warning C4477: 'printf' : la cadena de formato '%d' requiere un argumento de tipo 'int', pero el argumento variádico 1 tiene el tipo 'double'
+c:\users\alulab14.inf.005\desktop\supert-hot-opengl\superhotopengl\main.cpp(42): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
+c:\users\alulab14.inf.005\desktop\supert-hot-opengl\superhotopengl\main.cpp(139): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\alulab14.inf.005\desktop\supert-hot-opengl\superhotopengl\main.cpp(140): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\alulab14.inf.005\desktop\supert-hot-opengl\superhotopengl\main.cpp(147): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\alulab14.inf.005\desktop\supert-hot-opengl\superhotopengl\main.cpp(148): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\alulab14.inf.005\desktop\supert-hot-opengl\superhotopengl\main.cpp(171): warning C4477: 'printf' : la cadena de formato '%d' requiere un argumento de tipo 'int', pero el argumento variádico 1 tiene el tipo 'double'
+c:\users\alulab14.inf.005\desktop\supert-hot-opengl\superhotopengl\main.cpp(193): warning C4477: 'printf' : la cadena de formato '%d' requiere un argumento de tipo 'int', pero el argumento variádico 1 tiene el tipo 'double'
+  Bala.cpp
+c:\users\alulab14.inf.005\desktop\supert-hot-opengl\superhotopengl\headers\shader.h(64): warning C4101: 'infoLog': variable local sin referencia
+c:\users\alulab14.inf.005\desktop\supert-hot-opengl\superhotopengl\headers\shader.h(63): warning C4101: 'success': variable local sin referencia
+  Generando código...
   TemplateGL.vcxproj -> C:\Users\alulab14.INF.005\Desktop\supert-hot-opengl\Debug\SuperHotOpenGL.exe
   TemplateGL.vcxproj -> C:\Users\alulab14.INF.005\Desktop\supert-hot-opengl\Debug\SuperHotOpenGL.pdb (Partial PDB)

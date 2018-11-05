@@ -15,10 +15,12 @@
     <ClCompile Include="..\soil\src\stb_image_aug.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="settings.cpp" />
+    <ClCompile Include="Bala.cpp" />
     <ClCompile Include="source\camera.cpp" />
     <ClCompile Include="source\model.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bala.h" />
     <ClInclude Include="headers\camera.h" />
     <ClInclude Include="headers\mesh.h" />
     <ClInclude Include="headers\model.h" />

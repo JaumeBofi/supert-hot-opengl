@@ -22,26 +22,26 @@ LightSource light0 = LightSource(
      vec4(20.0, 20.0, 20.0, 1.0), //Posicion
      vec4(1.0, 1.0, 1.0, 1.0), //Difusividad
      vec4(1.0, 1.0, 1.0, 1.0), //Especularidad
-     0.0, 1.0, 0.0
+     0.0, 0.0, 0.0
 );
 
 LightSource light1 = LightSource(
      vec4(-20.0, 20.0, -20.0, 1.0), //Posicion
      vec4(1.0, 1.0, 1.0, 1.0), //Difusividad
      vec4(1.0, 1.0, 1.0, 1.0), //Especularidad
-     0.0, 1.0, 0.0
+     0.0, 0.0, 0.0
 );
 LightSource light2 = LightSource(
      vec4(20.0, 20.0, -20.0, 1.0), //Posicion
      vec4(1.0, 1.0, 1.0, 1.0), //Difusividad
      vec4(1.0, 1.0, 1.0, 1.0), //Especularidad
-     0.0, 1.0, 0.0
+     0.0, 0.0, 0.0
 );
 LightSource light3 = LightSource(
-     vec4(0.0, 0.0, 20.0, 1.0), //Posicion
+     vec4(-0.247253, 0.033664, -0.012056, 1.0), //Posicion
      vec4(1.0, 1.0, 1.0, 1.0), //Difusividad
      vec4(1.0, 1.0, 1.0, 1.0), //Especularidad
-     0.0, 1.0, 0.0
+     0.0, 0.0, 0.0
 );
 
 vec4 scene_ambient = vec4(0.3, 0.3, 0.3, 1.0);

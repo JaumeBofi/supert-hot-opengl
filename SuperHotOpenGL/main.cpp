@@ -13,6 +13,12 @@
 Settings settings = Settings();
 Shader* mainShader;
 Model* model;
+Model* model2;
+GLfloat pistolax;
+GLfloat pistolay;
+GLfloat pistolaz;
+
+
 
 // Camera
 Camera camera(glm::vec3(0.0f, -0.035449f, 0.0f));
@@ -42,6 +48,8 @@ bool init_resources()
 	mainShader = new Shader((settings.ShadersDirectory() + "super_hot.vs").c_str(), (settings.ShadersDirectory() + "super_hot.fs").c_str());
 	model = new Model("Arc170.obj");
 	model->ComputeData();	
+	model2 = new Model("deagle.obj");
+	model2->ComputeData();
 	return true;	
 }
 
@@ -75,6 +83,29 @@ void onDisplay() {
 	printf("%f posicion camara x\n", camera.Position.x);
 	printf("%f posicion camara y\n", camera.Position.y);
 	printf("%f posicion camara z\n", camera.Position.z);
+	printf("%f Pitch \n", camera.Pitch);
+	printf("%f Yaw \n", camera.Yaw);
+
+
+
+
+	glm::mat4 mod2 =
+		glm::rotate(glm::mat4(1.0f), glm::radians(camera.Yaw), glm::vec3(0.0f, 1.0f, 0.0f)) *
+		glm::translate(glm::mat4(1.0f), glm::vec3(pistolax, pistolay, pistolaz)) *
+		
+		glm::rotate(glm::mat4(1.0f), glm::radians(camera.Pitch), glm::vec3(1.0f, 0.0f, 0.0f))*
+		glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -0.0025f, 0.0f))*
+		glm::rotate(glm::mat4(1.0f), glm::radians(-180.0f), glm::vec3(0.0f, 0.0f, 1.0f)) *
+		glm::scale(glm::mat4(1.0f), glm::vec3(0.0005f, 0.0005f, 0.0005f)) 
+		 ;	// it's a bit too big for our scene, so scale it down
+	glm::mat3 mat_inv_transp2 = glm::transpose(glm::inverse(glm::mat3(mod2)));
+	mainShader->setMat3("m_3x3", mat_inv_transp2);
+	mainShader->setVec3("mat_specular", glm::vec3(1.0, 1.0, 1.0));
+	mainShader->setFloat("mat_s", 100);
+
+	mainShader->setMat4("model", mod2);
+	model2->Draw(*mainShader);
+
 	glutSwapBuffers();
 }
 
@@ -93,7 +124,9 @@ void mouseMovement(int xpos, int ypos) {
 	lastX = xpos;
 	lastY = ypos;
 
-	camera.ProcessMouseMovement(xoffset, yoffset);	
+	camera.ProcessMouseMovement(xoffset, yoffset);
+	
+
 	glutPostRedisplay();
 }
 
@@ -145,6 +178,9 @@ void keyboardInput(unsigned char keycode, int x, int y) {
 			}
 			
 		}
+		pistolax = camera.Position.x;
+		pistolay = camera.Position.y;
+		pistolaz = camera.Position.z;
 	
 		glutPostRedisplay();
 	
@@ -160,6 +196,9 @@ void onIdle()
 	/*int timeSinceStart = glutGet(GLUT_ELAPSED_TIME);	
 	deltaTime = timeSinceStart - oldTimeSinceStart;
 	oldTimeSinceStart = timeSinceStart;*/
+	
+
+	glutPostRedisplay();
 }
 
 

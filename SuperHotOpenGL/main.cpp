@@ -97,11 +97,12 @@ void onDisplay() {
 	printf("%f Yaw \n", camera.Yaw);
 
 
-
+	GLfloat alternativeYaw = camera.Yaw *-1;
 
 	glm::mat4 modPistola=
 		glm::translate(glm::mat4(1.0f), glm::vec3(pistolax, pistolay, pistolaz)) * //llevar pistola junto a la posicion de la camara
-		//glm::rotate(glm::mat4(1.0f), glm::radians(camera.Yaw), glm::vec3(0.0f, 1.0f, 0.0f)) *
+		glm::rotate(glm::mat4(1.0f), glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)) *
+		glm::rotate(glm::mat4(1.0f), glm::radians(alternativeYaw), glm::vec3(0.0f, 1.0f, 0.0f)) * //pistola sigue Yaw de la camara
 		glm::rotate(glm::mat4(1.0f), glm::radians(camera.Pitch), glm::vec3(1.0f, 0.0f, 0.0f))* //pistola sigue pitch de la camara
 		glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -0.0025f, 0.0f))*  //para que la pistola baje a un nivel aceptable
 		glm::rotate(glm::mat4(1.0f), glm::radians(-180.0f), glm::vec3(0.0f, 0.0f, 1.0f)) * //para que el modelo no aparezca de cabeza

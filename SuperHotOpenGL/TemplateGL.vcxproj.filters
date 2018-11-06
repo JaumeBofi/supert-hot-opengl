@@ -48,9 +48,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="settings.cpp">
-      <Filter>Archivos de código fuente\Foundation</Filter>
-    </ClCompile>
     <ClCompile Include="source\model.cpp">
       <Filter>Archivos de código fuente\Model</Filter>
     </ClCompile>
@@ -63,7 +60,19 @@
     <ClCompile Include="..\soil\src\stb_image_aug.c">
       <Filter>Archivos de código fuente\Foundation\SOIL</Filter>
     </ClCompile>
-    <ClCompile Include="Bala.cpp">
+    <ClCompile Include="source\settings.cpp">
+      <Filter>Archivos de código fuente\Foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="source\player.cpp">
+      <Filter>Archivos de código fuente\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="source\weapon.cpp">
+      <Filter>Archivos de código fuente\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="source\bullet.cpp">
+      <Filter>Archivos de código fuente\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="source\worldObject.cpp">
       <Filter>Archivos de código fuente\Model</Filter>
     </ClCompile>
   </ItemGroup>
@@ -83,7 +92,16 @@
     <ClInclude Include="headers\camera.h">
       <Filter>Archivos de encabezado\Foundation</Filter>
     </ClInclude>
-    <ClInclude Include="Bala.h">
+    <ClInclude Include="headers\bullet.h">
+      <Filter>Archivos de encabezado\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\worldObject.h">
+      <Filter>Archivos de encabezado\Foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\player.h">
+      <Filter>Archivos de encabezado\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\weapon.h">
       <Filter>Archivos de encabezado\Model</Filter>
     </ClInclude>
   </ItemGroup>

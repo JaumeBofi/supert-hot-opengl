@@ -14,18 +14,24 @@
     <ClCompile Include="..\soil\src\image_helper.c" />
     <ClCompile Include="..\soil\src\stb_image_aug.c" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="settings.cpp" />
-    <ClCompile Include="Bala.cpp" />
+    <ClCompile Include="source\bullet.cpp" />
     <ClCompile Include="source\camera.cpp" />
     <ClCompile Include="source\model.cpp" />
+    <ClCompile Include="source\player.cpp" />
+    <ClCompile Include="source\settings.cpp" />
+    <ClCompile Include="source\weapon.cpp" />
+    <ClCompile Include="source\worldObject.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bala.h" />
+    <ClInclude Include="headers\bullet.h" />
     <ClInclude Include="headers\camera.h" />
     <ClInclude Include="headers\mesh.h" />
     <ClInclude Include="headers\model.h" />
+    <ClInclude Include="headers\player.h" />
     <ClInclude Include="headers\settings.h" />
     <ClInclude Include="headers\shader.h" />
+    <ClInclude Include="headers\weapon.h" />
+    <ClInclude Include="headers\worldObject.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="source\super_hot.fs" />
@@ -34,7 +40,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8A0D5592-2E2A-45B9-98D9-73A47AF4A09B}</ProjectGuid>
     <RootNamespace>TemplateGL</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.10240.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
     <ProjectName>SuperHotOpenGL</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

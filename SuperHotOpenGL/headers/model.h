@@ -22,8 +22,6 @@
 using namespace std;
 
 
-
-
 class Model
 {
 public:

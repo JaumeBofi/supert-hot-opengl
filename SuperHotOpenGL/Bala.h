@@ -27,19 +27,21 @@ using namespace std;
 class Bala
 {
 private:
-	
+
 	glm::vec3 posicionActual;
 	glm::vec3 velocidadActual;
+	glm::vec3 direccion;
 	bool disparado;
 	bool moviendose;
 	bool recargado;
-	
+
 public:
-	
+
 	Bala();
-	Bala(glm::vec3,glm::vec3,bool,bool,bool);
+	Bala(glm::vec3, glm::vec3, glm::vec3, bool, bool, bool);
 	glm::mat4 render();
-			
+	void actualizarPosicion(float increment);
+
 };
 
 

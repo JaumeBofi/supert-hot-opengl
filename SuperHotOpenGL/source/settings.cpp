@@ -1,29 +1,13 @@
 #include <iostream>
-
-#define SCR_WIDTH 800
-#define SCR_HEIGHT 600
+#include <settings.h>
 
 
-class Settings
+
+Settings::Settings(unsigned int scrHeight, unsigned int scrWidth, std::string shadersDirectory)
 {
-	
-public:
-	unsigned int _scrWidth = SCR_WIDTH;
-	unsigned int _scrHeight = SCR_HEIGHT;
-
-	Settings()
-	{
-
-	}
-
-	Settings(unsigned int scrHeight = SCR_HEIGHT, unsigned int scrWidth = SCR_WIDTH)
-	{
-		_scrHeight = scrHeight;
-		_scrWidth = scrWidth;
-	}
-};
-
-
-
+	ScrWidth(scrWidth);
+	ScrHeight(scrHeight);
+	ShadersDirectory(shadersDirectory);
+}
 
 

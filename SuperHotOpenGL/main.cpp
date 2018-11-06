@@ -8,24 +8,14 @@
 #include <shader.h>
 #include <model.h>
 #include <camera.h>
-#include "Bala.h"
 #include <list>
+#include <player.h>
 
 // Settings
 Settings settings = Settings();
+glm::vec3 initialPosition = glm::vec3(0.0f, -0.035449f, 0.0f);
 Shader* mainShader;
 Model* model;
-
-//Pistola
-GLfloat pistolax;
-GLfloat pistolay;
-GLfloat pistolaz;
-Model* modelPistola;
-
-//Balas
-std::list<Bala> listaBalas;
-
-
 
 // Camera
 Camera camera(glm::vec3(0.0f, -0.035449f, 0.0f));
@@ -34,9 +24,21 @@ float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
 bool prueba = false;
 
+
+// Player
+Player player = Player(initialPosition,&camera);
+
+
 // Timing
 int oldTimeSinceStart = 0;
 float deltaTime = 0.01f;	// time between current frame and last frame
+
+//Pistola
+GLfloat pistolax;
+GLfloat pistolay;
+GLfloat pistolaz;
+Model* modelPistola;
+
 
 void display() {
 	glClearColor(1.0, 0.0, 0.0, 0.1);
@@ -50,13 +52,14 @@ void display() {
 }
 
 bool init_resources()
-{
-	printf("%s", (settings.ShadersDirectory() + "super_hot.vs").c_str());
+{	
 	mainShader = new Shader((settings.ShadersDirectory() + "super_hot.vs").c_str(), (settings.ShadersDirectory() + "super_hot.fs").c_str());
 	model = new Model("Arc170.obj");
-	model->ComputeData();	
-	modelPistola = new Model("deagle.obj");
-	modelPistola->ComputeData();
+	model->ComputeData();
+	
+	camera.Position = initialPosition;
+	
+	player.AddWeapon("deagle.obj", 10);	
 	return true;	
 }
 
@@ -74,15 +77,13 @@ void onDisplay() {
 	mainShader->setMat4("view", view);
 	mainShader->setVec3("cam_position", camera.Position);
 
-
-
-
 	// render the loaded model
 	glm::mat4 mod =				
 		glm::rotate(glm::mat4(1.0f), glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)) *
 		glm::scale(glm::mat4(1.0f), glm::vec3(model->scale, model->scale, model->scale)) *		
 		glm::translate(glm::mat4(1.0f), glm::vec3(-model->centroid.x, -model->centroid.y, -model->centroid.z)); // translate it down so it's at the center of the scene
 	;	// it's a bit too big for our scene, so scale it down
+
 	glm::mat3 mat_inv_transp = glm::transpose(glm::inverse(glm::mat3(mod)));
 	mainShader->setMat3("m_3x3", mat_inv_transp);
 	mainShader->setVec3("mat_specular", glm::vec3(1.0, 1.0, 1.0));
@@ -90,43 +91,40 @@ void onDisplay() {
 
 	mainShader->setMat4("model", mod);
 	model->Draw(*mainShader);
-	printf("%f posicion camara x\n", camera.Position.x);
-	printf("%f posicion camara y\n", camera.Position.y);
-	printf("%f posicion camara z\n", camera.Position.z);
-	printf("%f Pitch \n", camera.Pitch);
-	printf("%f Yaw \n", camera.Yaw);
+	
+
+	player.UpdatePosition();
+	player.GetCurrentWeapon()->render(mainShader);
+
+	//glm::mat4 modPistola=
+	//	glm::translate(glm::mat4(1.0f), glm::vec3(pistolax, pistolay, pistolaz)) * //llevar pistola junto a la posicion de la camara
+	//	//glm::rotate(glm::mat4(1.0f), glm::radians(camera.Yaw), glm::vec3(0.0f, 1.0f, 0.0f)) *
+	//	glm::rotate(glm::mat4(1.0f), glm::radians(camera.Pitch), glm::vec3(1.0f, 0.0f, 0.0f))* //pistola sigue pitch de la camara
+	//	glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -0.0025f, 0.0f))*  //para que la pistola baje a un nivel aceptable
+	//	glm::rotate(glm::mat4(1.0f), glm::radians(-180.0f), glm::vec3(0.0f, 0.0f, 1.0f)) * //para que el modelo no aparezca de cabeza
+	//	glm::scale(glm::mat4(1.0f), glm::vec3(0.0005f, 0.0005f, 0.0005f)) //para escalarlo a un tamaï¿½o realista
+	//	 ;	// it's a bit too big for our scene, so scale it down
+
+	//glm::mat3 mat_inv_transpPistola = glm::transpose(glm::inverse(glm::mat3(modPistola)));
+	//mainShader->setMat3("m_3x3", mat_inv_transpPistola);
+	//mainShader->setVec3("mat_specular", glm::vec3(1.0, 1.0, 1.0));
+	//mainShader->setFloat("mat_s", 100);
+
+	//mainShader->setMat4("model", modPistola);
+	//modelPistola->Draw(*mainShader);
 
 
+	//for (Bala bala : listaBalas) {
+	//	printf("BALA");
+	//	glm::mat4 modBala = bala.render();
+	//	glm::mat3 mat_inv_transp2 = glm::transpose(glm::inverse(glm::mat3(modBala)));
+	//	mainShader->setMat3("m_3x3", mat_inv_transp2);
+	//	mainShader->setVec3("mat_specular", glm::vec3(1.0, 1.0, 1.0));
+	//	mainShader->setFloat("mat_s", 100);
 
-
-	glm::mat4 modPistola=
-		glm::translate(glm::mat4(1.0f), glm::vec3(pistolax, pistolay, pistolaz)) * //llevar pistola junto a la posicion de la camara
-		//glm::rotate(glm::mat4(1.0f), glm::radians(camera.Yaw), glm::vec3(0.0f, 1.0f, 0.0f)) *
-		glm::rotate(glm::mat4(1.0f), glm::radians(camera.Pitch), glm::vec3(1.0f, 0.0f, 0.0f))* //pistola sigue pitch de la camara
-		glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -0.0025f, 0.0f))*  //para que la pistola baje a un nivel aceptable
-		glm::rotate(glm::mat4(1.0f), glm::radians(-180.0f), glm::vec3(0.0f, 0.0f, 1.0f)) * //para que el modelo no aparezca de cabeza
-		glm::scale(glm::mat4(1.0f), glm::vec3(0.0005f, 0.0005f, 0.0005f)) //para escalarlo a un tamaño realista
-		 ;	// it's a bit too big for our scene, so scale it down
-	glm::mat3 mat_inv_transpPistola = glm::transpose(glm::inverse(glm::mat3(modPistola)));
-	mainShader->setMat3("m_3x3", mat_inv_transpPistola);
-	mainShader->setVec3("mat_specular", glm::vec3(1.0, 1.0, 1.0));
-	mainShader->setFloat("mat_s", 100);
-
-	mainShader->setMat4("model", modPistola);
-	modelPistola->Draw(*mainShader);
-
-
-	for (Bala bala : listaBalas) {
-		printf("BALA");
-		glm::mat4 modBala = bala.render();
-		glm::mat3 mat_inv_transp2 = glm::transpose(glm::inverse(glm::mat3(modBala)));
-		mainShader->setMat3("m_3x3", mat_inv_transp2);
-		mainShader->setVec3("mat_specular", glm::vec3(1.0, 1.0, 1.0));
-		mainShader->setFloat("mat_s", 100);
-
-		mainShader->setMat4("model", modBala);
-		modelPistola->Draw(*mainShader);
-	}
+	//	mainShader->setMat4("model", modBala);
+	//	modelPistola->Draw(*mainShader);
+	//}
 
 
 	glutSwapBuffers();
@@ -153,13 +151,13 @@ void mouseMovement(int xpos, int ypos) {
 	glutPostRedisplay();
 }
 void onClick(int button, int state, int x, int y) {
-	switch (button) {
-	case GLUT_LEFT_BUTTON:
-		Bala bala = Bala(camera.Position,glm::vec3(0,0,0),true,true,true);
-		listaBalas.push_back(bala);
-		printf("click");
-		break;
-	}
+	//switch (button) {
+	//case GLUT_LEFT_BUTTON:
+	//	Bala bala = Bala(camera.Position,glm::vec3(0,0,0),true,true,true);
+	//	listaBalas.push_back(bala);
+	//	printf("click");
+	//	break;
+	//}
 	glutPostRedisplay();
 }
 
@@ -208,28 +206,44 @@ void keyboardInput(unsigned char keycode, int x, int y) {
 			case 27: // Escape key			
 				exit(EXIT_SUCCESS);
 				break;
-			}
-			
-		}
-		pistolax = camera.Position.x;
-		pistolay = camera.Position.y;
-		pistolaz = camera.Position.z;
+			}			
+		}		
 	
-		glutPostRedisplay();
-	
-	
-	
-	
-	
-	
+		glutPostRedisplay();						
 }
 
+float t = 0;
 void onIdle()
 {
 	/*int timeSinceStart = glutGet(GLUT_ELAPSED_TIME);	
 	deltaTime = timeSinceStart - oldTimeSinceStart;
 	oldTimeSinceStart = timeSinceStart;*/
-	
+	t = t + 0.0000005;
+
+	std::list<Bala>::iterator it;
+	for (it = listaBalas.begin(); it != listaBalas.end(); ++it) {
+		it->actualizarPosicion(t);
+		//std::cout << it->;
+	}
+	if (hasFired) {
+
+		if (goingDown) {
+			recoil += 0.5f;
+			if (recoil >= 0.0f) {
+				hasFired = false;
+				goingDown = false;
+
+			}
+
+
+		}
+		else {
+			recoil -= 0.5f;
+			printf("%f recoil \n", recoil);
+			if (recoil <= 10.0f) goingDown = true;
+		}
+	}
+
 	glutPostRedisplay();
 }
 

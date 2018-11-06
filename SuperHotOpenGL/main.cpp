@@ -100,12 +100,11 @@ void onDisplay() {
 	printf("%f posicion camara x\n", camera.Position.x);
 	printf("%f posicion camara y\n", camera.Position.y);
 	printf("%f posicion camara z\n", camera.Position.z);
-	printf("%f Pitch \n", camera.Pitch);
-	printf("%f Yaw \n", camera.Yaw);
+	printf("%f recoil \n", recoil);
 	if (hasFired)printf("hasFired= True\n");
-	else printf("hasFired= False");
+	else printf("hasFired= False\n");
 	if (goingDown)printf("goingDown= True\n");
-	else printf("goingDown= False");
+	else printf("goingDown= False\n");
 
 
 	GLfloat alternativeYaw = camera.Yaw *-1;
@@ -131,7 +130,7 @@ void onDisplay() {
 
 	std::list<Bala>::iterator bala;
 	for (bala = listaBalas.begin(); bala != listaBalas.end(); ++bala) {
-		printf("BALA");
+		//printf("BALA");
 		glm::mat4 modBala = bala->render();
 		glm::mat3 mat_inv_transp2 = glm::transpose(glm::inverse(glm::mat3(modBala)));
 		mainShader->setMat3("m_3x3", mat_inv_transp2);
@@ -257,7 +256,7 @@ void onIdle()
 	/*int timeSinceStart = glutGet(GLUT_ELAPSED_TIME);	
 	deltaTime = timeSinceStart - oldTimeSinceStart;
 	oldTimeSinceStart = timeSinceStart;*/
-	t = t + 0.0000005;
+	t = t + 0.00005;
 
 	std::list<Bala>::iterator it;
 	for (it = listaBalas.begin(); it != listaBalas.end(); ++it) {
@@ -267,7 +266,7 @@ void onIdle()
 	if (hasFired) {
 
 		if (goingDown) {
-			recoil += 0.5f;
+			recoil += 4.0f;
 			if (recoil >= 0.0f) {
 				hasFired = false;
 				goingDown = false;
@@ -277,9 +276,9 @@ void onIdle()
 
 		}
 		else {
-			recoil -= 0.5f;
+			recoil -= 4.0f;
 			printf("%f recoil \n", recoil);
-			if (recoil <= 10.0f) goingDown = true;
+			if (recoil <= -12.0f) goingDown = true;
 		}
 	}
 

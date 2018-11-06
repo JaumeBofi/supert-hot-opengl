@@ -156,7 +156,7 @@ void mouseMovement(int xpos, int ypos) {
 void onClick(int button, int state, int x, int y) {
 	switch (button) {
 	case GLUT_LEFT_BUTTON:
-		Bala bala = Bala(camera.Position,glm::vec3(0,0,0),true,true,true);
+		Bala bala = Bala(camera.Position,glm::vec3(0,0,0),camera.Front,true,true,true);
 		listaBalas.push_back(bala);
 		printf("click");
 		break;
@@ -225,12 +225,17 @@ void keyboardInput(unsigned char keycode, int x, int y) {
 	
 }
 
+float t = 0;
 void onIdle()
 {
 	/*int timeSinceStart = glutGet(GLUT_ELAPSED_TIME);	
 	deltaTime = timeSinceStart - oldTimeSinceStart;
 	oldTimeSinceStart = timeSinceStart;*/
-	
+	t = t + 0.05;
+	for (Bala bala : listaBalas) {
+		bala.actualizarPosicion(t);
+	}
+
 	glutPostRedisplay();
 }
 

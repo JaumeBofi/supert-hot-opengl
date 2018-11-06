@@ -21,6 +21,9 @@ GLfloat pistolax;
 GLfloat pistolay;
 GLfloat pistolaz;
 Model* modelPistola;
+GLfloat recoil = 0.0f;
+bool hasFired = false;
+bool goingDown = false;
 
 //Balas
 std::list<Bala> listaBalas;
@@ -99,6 +102,10 @@ void onDisplay() {
 	printf("%f posicion camara z\n", camera.Position.z);
 	printf("%f Pitch \n", camera.Pitch);
 	printf("%f Yaw \n", camera.Yaw);
+	if (hasFired)printf("hasFired= True\n");
+	else printf("hasFired= False");
+	if (goingDown)printf("goingDown= True\n");
+	else printf("goingDown= False");
 
 
 	GLfloat alternativeYaw = camera.Yaw *-1;
@@ -106,6 +113,7 @@ void onDisplay() {
 	glm::mat4 modPistola=
 		glm::translate(glm::mat4(1.0f), glm::vec3(pistolax, pistolay, pistolaz)) * //llevar pistola junto a la posicion de la camara
 		glm::rotate(glm::mat4(1.0f), glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)) *
+		glm::rotate(glm::mat4(1.0f), glm::radians(recoil), glm::vec3(0.0f, 0.0f, 1.0f)) *
 		glm::rotate(glm::mat4(1.0f), glm::radians(alternativeYaw), glm::vec3(0.0f, 1.0f, 0.0f)) * //pistola sigue Yaw de la camara
 		glm::rotate(glm::mat4(1.0f), glm::radians(camera.Pitch), glm::vec3(1.0f, 0.0f, 0.0f))* //pistola sigue pitch de la camara
 		glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -0.0025f, 0.0f))*  //para que la pistola baje a un nivel aceptable
@@ -176,6 +184,7 @@ void onClick(int button, int state, int x, int y) {
 		Bala bala = Bala(camera.Position,glm::vec3(0,0,0),camera.Front,true,true,true);
 		listaBalas.push_back(bala);
 		printf("click");
+		hasFired = true;
 		break;
 	}
 	glutPostRedisplay();
@@ -254,6 +263,24 @@ void onIdle()
 	for (it = listaBalas.begin(); it != listaBalas.end(); ++it) {
 		it->actualizarPosicion(t);
 		//std::cout << it->;
+	}
+	if (hasFired) {
+
+		if (goingDown) {
+			recoil += 0.5f;
+			if (recoil >= 0.0f) {
+				hasFired = false;
+				goingDown = false;
+
+			}
+
+
+		}
+		else {
+			recoil -= 0.5f;
+			printf("%f recoil \n", recoil);
+			if (recoil <= 10.0f) goingDown = true;
+		}
 	}
 
 	glutPostRedisplay();

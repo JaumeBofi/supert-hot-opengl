@@ -112,7 +112,7 @@ void onDisplay() {
 	glm::mat4 modPistola=
 		glm::translate(glm::mat4(1.0f), glm::vec3(pistolax, pistolay, pistolaz)) * //llevar pistola junto a la posicion de la camara
 		glm::rotate(glm::mat4(1.0f), glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)) *
-		glm::rotate(glm::mat4(1.0f), glm::radians(recoil), glm::vec3(0.0f, 0.0f, 1.0f)) *
+		glm::rotate(glm::mat4(1.0f), glm::radians(recoil), camera.Front) *
 		glm::rotate(glm::mat4(1.0f), glm::radians(alternativeYaw), glm::vec3(0.0f, 1.0f, 0.0f)) * //pistola sigue Yaw de la camara
 		glm::rotate(glm::mat4(1.0f), glm::radians(camera.Pitch), glm::vec3(1.0f, 0.0f, 0.0f))* //pistola sigue pitch de la camara
 		glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -0.0025f, 0.0f))*  //para que la pistola baje a un nivel aceptable
@@ -256,7 +256,7 @@ void onIdle()
 	/*int timeSinceStart = glutGet(GLUT_ELAPSED_TIME);	
 	deltaTime = timeSinceStart - oldTimeSinceStart;
 	oldTimeSinceStart = timeSinceStart;*/
-	t = t + 0.00005;
+	t = t + 0.000005;
 
 	std::list<Bala>::iterator it;
 	for (it = listaBalas.begin(); it != listaBalas.end(); ++it) {
@@ -266,8 +266,8 @@ void onIdle()
 	if (hasFired) {
 
 		if (goingDown) {
-			recoil += 4.0f;
-			if (recoil >= 0.0f) {
+			recoil -= 4.0f;
+			if (recoil <= 0.0f) {
 				hasFired = false;
 				goingDown = false;
 
@@ -276,9 +276,9 @@ void onIdle()
 
 		}
 		else {
-			recoil -= 4.0f;
+			recoil += 4.0f;
 			printf("%f recoil \n", recoil);
-			if (recoil <= -12.0f) goingDown = true;
+			if (recoil >= 12.0f) goingDown = true;
 		}
 	}
 

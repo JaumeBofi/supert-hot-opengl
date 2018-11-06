@@ -24,6 +24,7 @@ Model* modelPistola;
 
 //Balas
 std::list<Bala> listaBalas;
+Model* modelBala;
 
 
 
@@ -55,8 +56,11 @@ bool init_resources()
 	mainShader = new Shader((settings.ShadersDirectory() + "super_hot.vs").c_str(), (settings.ShadersDirectory() + "super_hot.fs").c_str());
 	model = new Model("Arc170.obj");
 	model->ComputeData();	
-	modelPistola = new Model("deagle.obj");
+	modelPistola = new Model("deagle.obj"); 
 	modelPistola->ComputeData();
+
+	modelBala = new Model("bullet.obj");
+	modelBala->ComputeData();
 	return true;	
 }
 
@@ -117,7 +121,20 @@ void onDisplay() {
 	modelPistola->Draw(*mainShader);
 
 
-	for (Bala bala : listaBalas) {
+	std::list<Bala>::iterator bala;
+	for (bala = listaBalas.begin(); bala != listaBalas.end(); ++bala) {
+		printf("BALA");
+		glm::mat4 modBala = bala->render();
+		glm::mat3 mat_inv_transp2 = glm::transpose(glm::inverse(glm::mat3(modBala)));
+		mainShader->setMat3("m_3x3", mat_inv_transp2);
+		mainShader->setVec3("mat_specular", glm::vec3(1.0, 1.0, 1.0));
+		mainShader->setFloat("mat_s", 100);
+
+		mainShader->setMat4("model", modBala);
+		modelBala->Draw(*mainShader);;
+	}
+
+/*	for (Bala bala : listaBalas) {
 		printf("BALA");
 		glm::mat4 modBala = bala.render();
 		glm::mat3 mat_inv_transp2 = glm::transpose(glm::inverse(glm::mat3(modBala)));
@@ -127,7 +144,7 @@ void onDisplay() {
 
 		mainShader->setMat4("model", modBala);
 		modelPistola->Draw(*mainShader);
-	}
+	}*/
 
 
 	glutSwapBuffers();
@@ -231,9 +248,12 @@ void onIdle()
 	/*int timeSinceStart = glutGet(GLUT_ELAPSED_TIME);	
 	deltaTime = timeSinceStart - oldTimeSinceStart;
 	oldTimeSinceStart = timeSinceStart;*/
-	t = t + 0.05;
-	for (Bala bala : listaBalas) {
-		bala.actualizarPosicion(t);
+	t = t + 0.0000005;
+
+	std::list<Bala>::iterator it;
+	for (it = listaBalas.begin(); it != listaBalas.end(); ++it) {
+		it->actualizarPosicion(t);
+		//std::cout << it->;
 	}
 
 	glutPostRedisplay();

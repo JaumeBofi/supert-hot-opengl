@@ -1,3 +1,14 @@
 ﻿d:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(387,5): warning MSB8028: El directorio intermedio (Debug\) contiene archivos compartidos de otro proyecto (TemplateGL.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
-  TemplateGL.vcxproj -> C:\temp\supert-hot-opengl\Debug\SuperHotOpenGL.exe
-  TemplateGL.vcxproj -> C:\temp\supert-hot-opengl\Debug\SuperHotOpenGL.pdb (Partial PDB)
+  main.cpp
+c:\temp\tagraf\supert-hot-opengl\superhotopengl\headers\shader.h(64): warning C4101: 'infoLog': variable local sin referencia
+c:\temp\tagraf\supert-hot-opengl\superhotopengl\headers\shader.h(63): warning C4101: 'success': variable local sin referencia
+c:\temp\tagraf\supert-hot-opengl\superhotopengl\main.cpp(48): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
+c:\temp\tagraf\supert-hot-opengl\superhotopengl\main.cpp(194): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+c:\temp\tagraf\supert-hot-opengl\superhotopengl\main.cpp(195): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+c:\temp\tagraf\supert-hot-opengl\superhotopengl\main.cpp(202): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+c:\temp\tagraf\supert-hot-opengl\superhotopengl\main.cpp(203): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+c:\temp\tagraf\supert-hot-opengl\superhotopengl\main.cpp(227): warning C4477: 'printf' : la cadena de formato '%d' requiere un argumento de tipo 'int', pero el argumento variádico 1 tiene el tipo 'double'
+c:\temp\tagraf\supert-hot-opengl\superhotopengl\main.cpp(249): warning C4477: 'printf' : la cadena de formato '%d' requiere un argumento de tipo 'int', pero el argumento variádico 1 tiene el tipo 'double'
+c:\temp\tagraf\supert-hot-opengl\superhotopengl\main.cpp(289): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+  TemplateGL.vcxproj -> C:\temp\TAGRAF\supert-hot-opengl\Debug\SuperHotOpenGL.exe
+  TemplateGL.vcxproj -> C:\temp\TAGRAF\supert-hot-opengl\Debug\SuperHotOpenGL.pdb (Partial PDB)

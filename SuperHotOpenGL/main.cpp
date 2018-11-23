@@ -67,7 +67,7 @@ bool init_resources()
 	modelBala = new Model("bullet.obj");
 	modelBala->ComputeData();
 
-	modelEnemy = new Model("legoobj.obj");
+	modelEnemy = new Model("mercenary.obj");
 	modelEnemy->ComputeData();
 	return true;	
 }
@@ -134,7 +134,7 @@ void onDisplay() {
 
 
 	glm::mat4 modEnemy =
-		glm::translate(glm::mat4(1.0f), glm::vec3(-0.103743, -0.035499, 0.149888)) * //llevar pistola junto a la posicion de la camara
+		glm::translate(glm::mat4(1.0f), glm::vec3(-0.075f, -0.040f, 0.0f)) * //llevar pistola junto a la posicion de la camara
 		glm::scale(glm::mat4(1.0f), glm::vec3(0.0005f, 0.0005f, 0.0005f)) //para escalarlo a un tamaño realista
 		;	// it's a bit too big for our scene, so scale it down
 	glm::mat3 mat_inv_transpEnemy = glm::transpose(glm::inverse(glm::mat3(modEnemy)));
@@ -143,6 +143,18 @@ void onDisplay() {
 	mainShader->setFloat("mat_s", 100);
 
 	mainShader->setMat4("model", modEnemy);
+	modelEnemy->Draw(*mainShader);
+
+	glm::mat4 modEnemy2 =
+		glm::translate(glm::mat4(1.0f), glm::vec3(-0.103743, -0.040f, 0.149888)) * //llevar pistola junto a la posicion de la camara
+		glm::scale(glm::mat4(1.0f), glm::vec3(0.0004f, 0.0004f, 0.0004f)) //para escalarlo a un tamaño realista
+		;	// it's a bit too big for our scene, so scale it down
+	glm::mat3 mat_inv_transpEnemy2 = glm::transpose(glm::inverse(glm::mat3(modEnemy2)));
+	mainShader->setMat3("m_3x3", mat_inv_transpEnemy2);
+	mainShader->setVec3("mat_specular", glm::vec3(1.0, 1.0, 1.0));
+	mainShader->setFloat("mat_s", 100);
+
+	mainShader->setMat4("model", modEnemy2);
 	modelEnemy->Draw(*mainShader);
 
 

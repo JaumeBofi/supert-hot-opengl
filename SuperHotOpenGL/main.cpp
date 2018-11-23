@@ -29,6 +29,8 @@ bool goingDown = false;
 std::list<Bala> listaBalas;
 Model* modelBala;
 
+//Test Enemy
+Model* modelEnemy;
 
 
 // Camera
@@ -64,6 +66,9 @@ bool init_resources()
 
 	modelBala = new Model("bullet.obj");
 	modelBala->ComputeData();
+
+	modelEnemy = new Model("legoobj.obj");
+	modelEnemy->ComputeData();
 	return true;	
 }
 
@@ -126,6 +131,19 @@ void onDisplay() {
 
 	mainShader->setMat4("model", modPistola);
 	modelPistola->Draw(*mainShader);
+
+
+	glm::mat4 modEnemy =
+		glm::translate(glm::mat4(1.0f), glm::vec3(-0.103743, -0.035499, 0.149888)) * //llevar pistola junto a la posicion de la camara
+		glm::scale(glm::mat4(1.0f), glm::vec3(0.0005f, 0.0005f, 0.0005f)) //para escalarlo a un tamaño realista
+		;	// it's a bit too big for our scene, so scale it down
+	glm::mat3 mat_inv_transpEnemy = glm::transpose(glm::inverse(glm::mat3(modEnemy)));
+	mainShader->setMat3("m_3x3", mat_inv_transpEnemy);
+	mainShader->setVec3("mat_specular", glm::vec3(1.0, 1.0, 1.0));
+	mainShader->setFloat("mat_s", 100);
+
+	mainShader->setMat4("model", modEnemy);
+	modelEnemy->Draw(*mainShader);
 
 
 	std::list<Bala>::iterator bala;

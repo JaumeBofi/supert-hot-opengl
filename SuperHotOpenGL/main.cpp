@@ -9,6 +9,7 @@
 #include <model.h>
 #include <camera.h>
 #include "Bala.h"
+#include "Enemy.h"
 #include <list>
 
 // Settings
@@ -31,7 +32,8 @@ Model* modelBala;
 
 //Test Enemy
 Model* modelEnemy;
-
+Enemy enemy1 = Enemy(glm::vec3(-0.075f, -0.0430f, 0.0f), glm::vec3(-0.075f, -0.040f, 0.0f));
+Enemy enemy2 = Enemy(glm::vec3(-0.103743, -0.0430f, 0.149888), glm::vec3(-0.103743, -0.040f, 0.149888));
 
 // Camera
 Camera camera(glm::vec3(0.0f, -0.035449f, 0.0f));
@@ -69,6 +71,8 @@ bool init_resources()
 
 	modelEnemy = new Model("mercenary.obj");
 	modelEnemy->ComputeData();
+
+	
 	return true;	
 }
 
@@ -133,10 +137,8 @@ void onDisplay() {
 	modelPistola->Draw(*mainShader);
 
 
-	glm::mat4 modEnemy =
-		glm::translate(glm::mat4(1.0f), glm::vec3(-0.075f, -0.040f, 0.0f)) * //llevar pistola junto a la posicion de la camara
-		glm::scale(glm::mat4(1.0f), glm::vec3(0.0005f, 0.0005f, 0.0005f)) //para escalarlo a un tamaño realista
-		;	// it's a bit too big for our scene, so scale it down
+	glm::mat4 modEnemy = enemy1.render();
+		
 	glm::mat3 mat_inv_transpEnemy = glm::transpose(glm::inverse(glm::mat3(modEnemy)));
 	mainShader->setMat3("m_3x3", mat_inv_transpEnemy);
 	mainShader->setVec3("mat_specular", glm::vec3(1.0, 1.0, 1.0));
@@ -145,10 +147,7 @@ void onDisplay() {
 	mainShader->setMat4("model", modEnemy);
 	modelEnemy->Draw(*mainShader);
 
-	glm::mat4 modEnemy2 =
-		glm::translate(glm::mat4(1.0f), glm::vec3(-0.103743, -0.040f, 0.149888)) * //llevar pistola junto a la posicion de la camara
-		glm::scale(glm::mat4(1.0f), glm::vec3(0.0004f, 0.0004f, 0.0004f)) //para escalarlo a un tamaño realista
-		;	// it's a bit too big for our scene, so scale it down
+	glm::mat4 modEnemy2 = enemy2.render();
 	glm::mat3 mat_inv_transpEnemy2 = glm::transpose(glm::inverse(glm::mat3(modEnemy2)));
 	mainShader->setMat3("m_3x3", mat_inv_transpEnemy2);
 	mainShader->setVec3("mat_specular", glm::vec3(1.0, 1.0, 1.0));

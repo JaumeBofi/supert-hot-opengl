@@ -38,9 +38,9 @@ public:
 
 	Enemy();
 	Enemy(glm::vec3, glm::vec3);
-	glm::mat4 initialRender();
-	void moveEnemy(float increment);
-	void shoot(glm::vec3 playerPosition);
+	glm::mat4 render();
+	//void moveEnemy(float increment);
+	//void shoot(glm::vec3 playerPosition);
 
 };
 

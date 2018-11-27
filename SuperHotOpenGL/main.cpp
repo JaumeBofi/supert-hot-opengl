@@ -36,7 +36,7 @@ Enemy enemy1 = Enemy(glm::vec3(-0.075f, -0.0430f, 0.0f), glm::vec3(-0.075f, -0.0
 Enemy enemy2 = Enemy(glm::vec3(-0.103743, -0.0430f, 0.149888), glm::vec3(-0.103743, -0.040f, 0.149888));
 
 // Camera
-Camera camera(glm::vec3(0.0f, -0.035449f, 0.0f));
+Camera camera(glm::vec3(-0.07f, -0.035449f, 0.0f));
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
@@ -66,7 +66,7 @@ bool init_resources()
 	modelPistola = new Model("deagle.obj"); 
 	modelPistola->ComputeData();
 
-	modelBala = new Model("bullet.obj");
+	modelBala = new Model("bowlingball.obj");
 	modelBala->ComputeData();
 
 	modelEnemy = new Model("mercenary.obj");
@@ -285,7 +285,7 @@ void onIdle()
 	/*int timeSinceStart = glutGet(GLUT_ELAPSED_TIME);	
 	deltaTime = timeSinceStart - oldTimeSinceStart;
 	oldTimeSinceStart = timeSinceStart;*/
-	t = t + 0.000005;
+	t = t + 0.000002;
 
 	std::list<Bala>::iterator it;
 	for (it = listaBalas.begin(); it != listaBalas.end(); ++it) {

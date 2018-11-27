@@ -44,10 +44,9 @@ glm::mat4 Bala::render() {
 	//glm::vec3 nuevo = this->direccion*0.005f;
 	//this->posicionActual = nuevo;
 	glm::mat4 modBala =
-		glm::translate(glm::mat4(1.0f), glm::vec3(this->posicionActual.x, this->posicionActual.y, this->posicionActual.z)) *
+		glm::translate(glm::mat4(1.0f), glm::vec3(this->posicionActual.x + 0.0005f, this->posicionActual.y - 0.0005f, this->posicionActual.z)) *
 		glm::rotate(glm::mat4(1.0f), glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f)) *
-		glm::scale(glm::mat4(1.0f), glm::vec3(0.00005f, 0.00005f, 0.00005f))
-		;	// it's a bit too big for our scene, so scale it down
+		glm::scale(glm::mat4(1.0f), glm::vec3(0.00002f, 0.00002f, 0.00002f));
 	//this->posicionActual.x -= 0.002f;
 	printf("DESPUES Bala x: %f , Bala y: %f ,Bala z: %f\n", this->posicionActual.x, this->posicionActual.y, this->posicionActual.z);
 	return modBala;

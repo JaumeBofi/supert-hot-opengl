@@ -109,7 +109,7 @@ void onDisplay() {
 	printf("%f posicion camara x\n", camera.Position.x);
 	printf("%f posicion camara y\n", camera.Position.y);
 	printf("%f posicion camara z\n", camera.Position.z);
-	printf("%f recoil \n", recoil);
+	//printf("%f recoil \n", recoil);
 	if (hasFired)printf("hasFired= True\n");
 	else printf("hasFired= False\n");
 	if (goingDown)printf("goingDown= True\n");
@@ -137,24 +137,7 @@ void onDisplay() {
 	modelPistola->Draw(*mainShader);
 
 
-	glm::mat4 modEnemy = enemy1.render();
-		
-	glm::mat3 mat_inv_transpEnemy = glm::transpose(glm::inverse(glm::mat3(modEnemy)));
-	mainShader->setMat3("m_3x3", mat_inv_transpEnemy);
-	mainShader->setVec3("mat_specular", glm::vec3(1.0, 1.0, 1.0));
-	mainShader->setFloat("mat_s", 100);
-
-	mainShader->setMat4("model", modEnemy);
-	modelEnemy->Draw(*mainShader);
-
-	glm::mat4 modEnemy2 = enemy2.render();
-	glm::mat3 mat_inv_transpEnemy2 = glm::transpose(glm::inverse(glm::mat3(modEnemy2)));
-	mainShader->setMat3("m_3x3", mat_inv_transpEnemy2);
-	mainShader->setVec3("mat_specular", glm::vec3(1.0, 1.0, 1.0));
-	mainShader->setFloat("mat_s", 100);
-
-	mainShader->setMat4("model", modEnemy2);
-	modelEnemy->Draw(*mainShader);
+	
 
 
 	std::list<Bala>::iterator bala;
@@ -169,6 +152,26 @@ void onDisplay() {
 		mainShader->setMat4("model", modBala);
 		modelBala->Draw(*mainShader);;
 	}
+
+
+	glm::mat4 modEnemy = enemy1.render(modelPistola, modelBala, mainShader, camera.Position.x, camera.Position.z);
+
+	glm::mat3 mat_inv_transpEnemy = glm::transpose(glm::inverse(glm::mat3(modEnemy)));
+	mainShader->setMat3("m_3x3", mat_inv_transpEnemy);
+	mainShader->setVec3("mat_specular", glm::vec3(1.0, 1.0, 1.0));
+	mainShader->setFloat("mat_s", 100);
+
+	mainShader->setMat4("model", modEnemy);
+	modelEnemy->Draw(*mainShader);
+
+	glm::mat4 modEnemy2 = enemy2.render(modelPistola, modelBala, mainShader, camera.Position.x, camera.Position.z);
+	glm::mat3 mat_inv_transpEnemy2 = glm::transpose(glm::inverse(glm::mat3(modEnemy2)));
+	mainShader->setMat3("m_3x3", mat_inv_transpEnemy2);
+	mainShader->setVec3("mat_specular", glm::vec3(1.0, 1.0, 1.0));
+	mainShader->setFloat("mat_s", 100);
+
+	mainShader->setMat4("model", modEnemy2);
+	modelEnemy->Draw(*mainShader);
 
 /*	for (Bala bala : listaBalas) {
 		printf("BALA");
@@ -211,7 +214,9 @@ void onClick(int button, int state, int x, int y) {
 	case GLUT_LEFT_BUTTON:
 		Bala bala = Bala(camera.Position,glm::vec3(0,0,0),camera.Front,true,true,true);
 		listaBalas.push_back(bala);
-		printf("click");
+		enemy1.addBullet(camera.Position);
+		enemy2.addBullet(camera.Position);
+		//printf("click");
 		hasFired = true;
 		break;
 	}
@@ -223,7 +228,7 @@ void keyboardInput(unsigned char keycode, int x, int y) {
 		    prueba = !prueba;
 	    }
 		if (prueba) {
-			printf("%d\n", deltaTime);
+			//printf("%d\n", deltaTime);
 			switch (keycode)
 			{
 			case 's': // Escape key
@@ -291,7 +296,14 @@ void onIdle()
 	for (it = listaBalas.begin(); it != listaBalas.end(); ++it) {
 		it->actualizarPosicion(t);
 		//std::cout << it->;
+
+		///manejar luego de otra forma - temporal hasta acabar el ciclo :) 
+		enemy1.updateBulletsPosition(t);
+		enemy2.updateBulletsPosition(t);
 	}
+
+
+
 	if (hasFired) {
 
 		if (goingDown) {
@@ -306,7 +318,7 @@ void onIdle()
 		}
 		else {
 			recoil += 4.0f;
-			printf("%f recoil \n", recoil);
+			//printf("%f recoil \n", recoil);
 			if (recoil >= 12.0f) goingDown = true;
 		}
 	}

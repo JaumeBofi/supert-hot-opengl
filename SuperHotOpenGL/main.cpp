@@ -32,7 +32,7 @@ Model* modelBala;
 
 //Test Enemy
 Model* modelEnemy;
-Enemy enemy1 = Enemy(glm::vec3(-0.075f, -0.0430f, 0.0f), glm::vec3(-0.075f, -0.040f, 0.0f));
+Enemy enemy1 = Enemy(glm::vec3(-0.239149f, -0.0430f, -0.022f), glm::vec3(-0.075f, -0.040f, 0.0f));
 Enemy enemy2 = Enemy(glm::vec3(-0.103743, -0.0430f, 0.149888), glm::vec3(-0.103743, -0.040f, 0.149888));
 
 // Camera

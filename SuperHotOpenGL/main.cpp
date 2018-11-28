@@ -154,7 +154,7 @@ void onDisplay() {
 	}
 
 
-	glm::mat4 modEnemy = enemy1.render(modelPistola, modelBala, mainShader, camera.Position.x, camera.Position.z);
+	glm::mat4 modEnemy = enemy1.render(modelPistola, modelBala, mainShader, pistolax, pistolaz);
 
 	glm::mat3 mat_inv_transpEnemy = glm::transpose(glm::inverse(glm::mat3(modEnemy)));
 	mainShader->setMat3("m_3x3", mat_inv_transpEnemy);
@@ -164,7 +164,7 @@ void onDisplay() {
 	mainShader->setMat4("model", modEnemy);
 	modelEnemy->Draw(*mainShader);
 
-	glm::mat4 modEnemy2 = enemy2.render(modelPistola, modelBala, mainShader, camera.Position.x, camera.Position.z);
+	glm::mat4 modEnemy2 = enemy2.render(modelPistola, modelBala, mainShader, pistolax, pistolaz);
 	glm::mat3 mat_inv_transpEnemy2 = glm::transpose(glm::inverse(glm::mat3(modEnemy2)));
 	mainShader->setMat3("m_3x3", mat_inv_transpEnemy2);
 	mainShader->setVec3("mat_specular", glm::vec3(1.0, 1.0, 1.0));

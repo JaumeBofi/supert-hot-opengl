@@ -23,6 +23,9 @@
 #include "Bala.h"
 using namespace std;
 
+const float angleFactor = 70.0f;
+const float pistolPosYDiff = 0.0065f;
+
 Enemy::Enemy() {
 	this->initialPosition = glm::vec3(0, 0, 0);
 	this->finalPosition = glm::vec3(0, 0, 0);
@@ -35,37 +38,39 @@ Enemy::Enemy(glm::vec3 initialPosition, glm::vec3 finalPosition) {
 }
 
 void Enemy::addBullet(glm::vec3 positionPlayer){
-	glm::vec3 direction = positionPlayer - this->initialPosition;
-	glm::vec3 position = glm::vec3(this->initialPosition.x, this->initialPosition.y+0.0065, this->initialPosition.z);
-	Bala bala = Bala(this->initialPosition, glm::vec3(0, 0, 0), glm::normalize(direction), true, true, true);
+	glm::vec3 position = glm::vec3(this->initialPosition.x, this->initialPosition.y + pistolPosYDiff, this->initialPosition.z);
+	glm::vec3 direction = positionPlayer - position;
+	
+	Bala bala = Bala(position, glm::vec3(0, 0, 0), glm::normalize(direction), true, true, true);
 	listaBalas.push_back(bala);
 }
 
 glm::mat4 Enemy::render(Model* modelPistol, Model* modelBullet, Shader* mainShader, float playerX, float playerZ) {
 	
-	float dx = this->initialPosition.x - playerX;
-	float dz = this->initialPosition.z - playerZ;
-	float ang = atan2(dz, dx);
+	float dx = playerX - this->initialPosition.x;
+	float dz = playerZ- this->initialPosition.z;
+	float angle = atan2(-dz, dx);
 	printf("ang\n");
 	printf("ang\g");
-	printf(" \nang: %f",ang);
+	printf(" \nang: %f",angle);
 	//printf("Enemy InitialPosition x: %f , Enemy FinalPosition y: %f", this->initialPosition, this->finalPosition);
 	glm::mat4 enemyModel =
-		//glm::rotate(glm::mat4(1.0f), glm::radians(ang-20.0f), glm::vec3(0.0f, 1.0f, 0.0f))*
 		glm::translate(glm::mat4(1.0f), glm::vec3(this->initialPosition.x, this->initialPosition.y, this->initialPosition.z)) *
+		glm::rotate(glm::mat4(1.0f), glm::radians(angle*angleFactor), glm::vec3(0.0f, 1.0f, 0.0f))*
 		glm::scale(glm::mat4(1.0f), glm::vec3(0.00008f, 0.00008f, 0.00008f));
 
 
-	renderPistol(modelPistol,modelBullet, mainShader);
+	renderPistol(modelPistol, mainShader, angle);
 	renderBullet(modelBullet, mainShader);
 	return enemyModel;
 }
 
-void Enemy::renderPistol(Model* modelPistol,Model* modelBullet, Shader* mainShader){
+void Enemy::renderPistol(Model* modelPistol, Shader* mainShader,float angle){
 	glm::mat4 modPistola =
-		glm::translate(glm::mat4(1.0f), glm::vec3(this->initialPosition.x, this->initialPosition.y+0.0065, this->initialPosition.z)) * //llevar pistola junto a la posicion de la camara
-		glm::rotate(glm::mat4(1.0f), glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)) *
+		glm::translate(glm::mat4(1.0f), glm::vec3(this->initialPosition.x, this->initialPosition.y + pistolPosYDiff, this->initialPosition.z)) * //llevar pistola junto a la posicion de la camara
+		glm::rotate(glm::mat4(1.0f), glm::radians(-90.0f + angle*angleFactor), glm::vec3(0.0f, 1.0f, 0.0f)) *
 		glm::rotate(glm::mat4(1.0f), glm::radians(-180.0f), glm::vec3(0.0f, 0.0f, 1.0f)) * //para que el modelo no aparezca de cabeza
+		//glm::rotate(glm::mat4(1.0f), glm::radians(angle*angleFactor), glm::vec3(0.0f, 1.0f, 0.0f))*
 		glm::scale(glm::mat4(1.0f), glm::vec3(0.00035f, 0.00035f, 0.00035f)) //para escalarlo a un tamaño realista
 		;	// it's a bit too big for our scene, so scale it down
 	glm::mat3 mat_inv_transpPistola = glm::transpose(glm::inverse(glm::mat3(modPistola)));

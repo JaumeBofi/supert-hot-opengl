@@ -28,7 +28,7 @@ bool prueba = false;
 
 
 // Player
-glm::vec3 initialPosition = glm::vec3(0.0f, -0.035449f, 0.0f);
+glm::vec3 initialPosition = glm::vec3(-0.07f, -0.035449f, 0.0f);
 Player player = Player(initialPosition, &camera);
 
 // Timing
@@ -51,8 +51,8 @@ Model* modelBala;
 
 //Test Enemy
 Model* modelEnemy;
-Enemy enemy1 = Enemy(glm::vec3(-0.075f, -0.0430f, 0.0f), glm::vec3(-0.075f, -0.040f, 0.0f));
-Enemy enemy2 = Enemy(glm::vec3(-0.103743, -0.0430f, 0.149888), glm::vec3(-0.103743, -0.040f, 0.149888));
+Enemy enemy1 = Enemy(glm::vec3(-0.239149f, -0.0430f, -0.022f), glm::vec3(-0.075f, -0.040f, 0.0f));
+Enemy enemy2 = Enemy(glm::vec3(-0.103743, -0.0430f, 0.149888), glm::vec3(-0.103743, -0.040f, 0.149888),true);
 
 
 void display() {
@@ -190,9 +190,9 @@ void onClick(int button, int state, int x, int y) {
 	switch (button) {
 	case GLUT_LEFT_BUTTON:
 		/*Bala bala = Bala(camera.Position,glm::vec3(0,0,0),camera.Front,true,true,true);
-		listaBalas.push_back(bala);
+		listaBalas.push_back(bala);	*/	
 		enemy1.addBullet(camera.Position);
-		enemy2.addBullet(camera.Position);	*/	
+		enemy2.addBullet(camera.Position);
 		player.Fire();
 		break;
 	}
@@ -260,6 +260,8 @@ void onIdle()
 	deltaTime = timeSinceStart - oldTimeSinceStart;
 	oldTimeSinceStart = timeSinceStart;*/
 	t = t + 0.000002;
+	enemy1.update(camera.Position);
+	enemy2.update(camera.Position);
 
 	std::vector<Bullet*>::iterator bullet;
 	for (bullet = player.GetCurrentWeapon()->CurrentBullets()->begin(); bullet != player.GetCurrentWeapon()->CurrentBullets()->end(); ++bullet) {

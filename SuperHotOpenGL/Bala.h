@@ -40,7 +40,7 @@ public:
 	Bala();
 	Bala(glm::vec3, glm::vec3, glm::vec3, bool, bool, bool);
 	glm::mat4 render();
-	void actualizarPosicion(float increment);
+	void actualizarPosicion();
 
 };
 

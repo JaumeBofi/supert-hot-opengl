@@ -51,8 +51,8 @@ Model* modelBala;
 
 //Test Enemy
 Model* modelEnemy;
-Enemy enemy1 = Enemy(glm::vec3(-0.239149f, -0.0430f, -0.022f), glm::vec3(-0.075f, -0.040f, 0.0f));
-Enemy enemy2 = Enemy(glm::vec3(-0.103743, -0.0430f, 0.149888), glm::vec3(-0.103743, -0.040f, 0.149888),true);
+Enemy enemy1;
+Enemy enemy2;
 
 
 void display() {
@@ -74,15 +74,11 @@ bool init_resources()
 	
 	player.AddWeapon(new Weapon("deagle.obj","bowlingball.obj", 10));
 
-	modelPistola = new Model("deagle.obj"); 
-	modelPistola->ComputeData();
-
-	modelBala = new Model("bowlingball.obj");
-	modelBala->ComputeData();
-
-	modelEnemy = new Model("mercenary.obj");
-	modelEnemy->ComputeData();
+	enemy1 = Enemy("mercenary.obj", new Weapon("deagle.obj", "bowlingball.obj", 10), glm::vec3(-0.239149f, -0.0430f, -0.022f));
+	enemy2 = Enemy("mercenary.obj", new Weapon("deagle.obj", "bowlingball.obj", 10), glm::vec3(-0.103743, -0.0430f, 0.149888), true);
 	
+	enemy1.setWeapon(new Weapon("deagle.obj", "bowlingball.obj", 10));
+	enemy2.setWeapon(new Weapon("deagle.obj", "bowlingball.obj", 10));
 	camera.Position = initialPosition;
 	return true;	
 }
@@ -145,24 +141,9 @@ void onDisplay() {
 	}
 
 
-	glm::mat4 modEnemy = enemy1.render(modelPistola, modelBala, mainShader, camera.Position.x, camera.Position.z);
-
-	glm::mat3 mat_inv_transpEnemy = glm::transpose(glm::inverse(glm::mat3(modEnemy)));
-	mainShader->setMat3("m_3x3", mat_inv_transpEnemy);
-	mainShader->setVec3("mat_specular", glm::vec3(1.0, 1.0, 1.0));
-	mainShader->setFloat("mat_s", 100);
-
-	mainShader->setMat4("model", modEnemy);
-	modelEnemy->Draw(*mainShader);
-
-	glm::mat4 modEnemy2 = enemy2.render(modelPistola, modelBala, mainShader, camera.Position.x, camera.Position.z);
-	glm::mat3 mat_inv_transpEnemy2 = glm::transpose(glm::inverse(glm::mat3(modEnemy2)));
-	mainShader->setMat3("m_3x3", mat_inv_transpEnemy2);
-	mainShader->setVec3("mat_specular", glm::vec3(1.0, 1.0, 1.0));
-	mainShader->setFloat("mat_s", 100);
-
-	mainShader->setMat4("model", modEnemy2);
-	modelEnemy->Draw(*mainShader);
+	enemy1.renderEnemy(camera.Position, mainShader);
+	enemy2.renderEnemy(camera.Position, mainShader);
+	
 
 	glutSwapBuffers();
 }
@@ -191,8 +172,9 @@ void onClick(int button, int state, int x, int y) {
 	case GLUT_LEFT_BUTTON:
 		/*Bala bala = Bala(camera.Position,glm::vec3(0,0,0),camera.Front,true,true,true);
 		listaBalas.push_back(bala);	*/	
-		enemy1.addBullet(camera.Position);
-		enemy2.addBullet(camera.Position);
+
+		enemy1.fire(camera.Position);
+		enemy2.fire(camera.Position);
 		player.Fire();
 		break;
 	}

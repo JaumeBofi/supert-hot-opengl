@@ -46,4 +46,5 @@ public:
 
 	void UpdatePosition(glm::mat4 model);
 	Bullet* Fire(glm::vec3 initialPosition,glm::vec3 direction);
+	Bullet* Weapon::Fire(glm::vec3 initialPosition, glm::vec3 direction, float velocity);
 };

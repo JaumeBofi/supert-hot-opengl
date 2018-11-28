@@ -23,12 +23,13 @@
 #include <list>
 
 #include "Bala.h"
+#include <weapon.h>
 using namespace std;
 
 
 
 
-class Enemy
+class Enemy : public WorldObject
 {
 private:
 
@@ -36,21 +37,22 @@ private:
 	glm::vec3 finalPosition;
 	std::list<Bala> listaBalas;
 	bool followPlayer;
+	Weapon* weapon;
 
 public:
 
 	Enemy();
-	Enemy(glm::vec3, glm::vec3);
-	Enemy(glm::vec3, glm::vec3, bool);
-	glm::mat4 render(Model* modelPistola, Model* modelBala, Shader* mainShader, float playerX, float playerY);
-	void Enemy::renderPistol(Model* modelPistol, Shader* mainShader, float angle);
-	void Enemy::renderBullet(Model* modelBullet, Shader* mainShader);
+	Enemy(string modelName,Weapon*, glm::vec3);
+	Enemy(string modelName,Weapon*,glm::vec3, bool);
+
 	void Enemy::updateBulletsPosition();
 	void Enemy::addBullet(glm::vec3);
 	void Enemy::update(glm::vec3);
-	//void moveEnemy(float increment);
-	//void shoot(glm::vec3 playerPosition);
-
+	void Enemy::renderEnemyBullet(Shader* mainShader);
+	void Enemy::renderEnemyWeapon(float angle, Shader* mainShader);
+	void Enemy::setWeapon(Weapon*);
+	void Enemy::renderEnemy(glm::vec3 playerPosition, Shader* mainShader);
+	void Enemy::fire(glm::vec3 positionPlayer);
 };
 
 

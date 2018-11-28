@@ -20,6 +20,8 @@
 
 using namespace std;
 
+const float movSpeed = 0.002f;
+
 Bala::Bala() {
 	this->posicionActual = glm::vec3(0, 0, 0);
 	this->velocidadActual = glm::vec3(0, 0, 0);
@@ -52,7 +54,7 @@ glm::mat4 Bala::render() {
 	return modBala;
 }
 
-void Bala::actualizarPosicion(float increment) {
+void Bala::actualizarPosicion() {
 	//this->posicionActual += this->direccion*0.5f;
-	this->posicionActual += this->direccion*increment;
+	this->posicionActual += this->direccion*movSpeed;
 }

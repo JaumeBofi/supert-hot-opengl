@@ -33,19 +33,21 @@ class Enemy
 private:
 
 	glm::vec3 initialPosition;
-	glm::vec3 finalPosition;	
+	glm::vec3 finalPosition;
 	std::list<Bala> listaBalas;
-
+	bool followPlayer;
 
 public:
 
 	Enemy();
 	Enemy(glm::vec3, glm::vec3);
+	Enemy(glm::vec3, glm::vec3, bool);
 	glm::mat4 render(Model* modelPistola, Model* modelBala, Shader* mainShader, float playerX, float playerY);
-	void Enemy::renderPistol(Model* modelPistol, Shader* mainShader,float angle);
+	void Enemy::renderPistol(Model* modelPistol, Shader* mainShader, float angle);
 	void Enemy::renderBullet(Model* modelBullet, Shader* mainShader);
-	void Enemy::updateBulletsPosition(float increment);
+	void Enemy::updateBulletsPosition();
 	void Enemy::addBullet(glm::vec3);
+	void Enemy::update(glm::vec3);
 	//void moveEnemy(float increment);
 	//void shoot(glm::vec3 playerPosition);
 

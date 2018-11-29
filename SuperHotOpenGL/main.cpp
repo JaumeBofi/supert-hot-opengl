@@ -51,8 +51,7 @@ Model* modelBala;
 
 //Test Enemy
 Model* modelEnemy;
-Enemy enemy1;
-Enemy enemy2;
+std::list<Enemy> enemiesList;
 
 
 void display() {
@@ -74,11 +73,14 @@ bool init_resources()
 	
 	player.AddWeapon(new Weapon("deagle.obj","bowlingball.obj", 10));
 
-	enemy1 = Enemy("mercenary.obj", new Weapon("deagle.obj", "bowlingball.obj", 10), glm::vec3(-0.239149f, -0.0430f, -0.022f));
-	enemy2 = Enemy("mercenary.obj", new Weapon("deagle.obj", "bowlingball.obj", 10), glm::vec3(-0.103743, -0.0430f, 0.149888), true);
-	
-	enemy1.setWeapon(new Weapon("deagle.obj", "bowlingball.obj", 10));
-	enemy2.setWeapon(new Weapon("deagle.obj", "bowlingball.obj", 10));
+	Enemy enemy1 = Enemy("mercenary.obj", new Weapon("deagle.obj", "bowlingball.obj", 10), glm::vec3(-0.239149f, -0.0430f, -0.022f));
+	Enemy enemy2 = Enemy("mercenary.obj", new Weapon("deagle.obj", "bowlingball.obj", 10), glm::vec3(-0.103743, -0.0430f, 0.149888));
+	Enemy enemy3 = Enemy("mercenary.obj", new Weapon("deagle.obj", "bowlingball.obj", 10), glm::vec3(-0.029067, -0.0430f, -0.107453), true);
+
+	enemiesList.push_back(enemy1);
+	enemiesList.push_back(enemy2);
+	enemiesList.push_back(enemy3);
+
 	camera.Position = initialPosition;
 	return true;	
 }
@@ -140,10 +142,12 @@ void onDisplay() {
 		}	
 	}
 
+	std::list<Enemy>::iterator enemy;
+	for (enemy = enemiesList.begin(); enemy != enemiesList.end(); ++enemy) {
+		enemy->renderEnemy(camera.Position,mainShader);
+	}	
 
-	enemy1.renderEnemy(camera.Position, mainShader);
-	enemy2.renderEnemy(camera.Position, mainShader);
-	
+	printf("\nPosX: %f PosZ: %f\n", camera.Position.x, camera.Position.z);
 
 	glutSwapBuffers();
 }
@@ -173,8 +177,11 @@ void onClick(int button, int state, int x, int y) {
 		/*Bala bala = Bala(camera.Position,glm::vec3(0,0,0),camera.Front,true,true,true);
 		listaBalas.push_back(bala);	*/	
 
-		enemy1.fire(camera.Position);
-		enemy2.fire(camera.Position);
+		std::list<Enemy>::iterator enemy;
+		for (enemy = enemiesList.begin(); enemy != enemiesList.end(); ++enemy) {
+			enemy->fire(camera.Position);
+		}
+
 		player.Fire();
 		break;
 	}
@@ -242,8 +249,12 @@ void onIdle()
 	deltaTime = timeSinceStart - oldTimeSinceStart;
 	oldTimeSinceStart = timeSinceStart;*/
 	t = t + 0.000002;
-	enemy1.update(camera.Position);
-	enemy2.update(camera.Position);
+
+
+	std::list<Enemy>::iterator enemy;
+	for (enemy = enemiesList.begin(); enemy != enemiesList.end(); ++enemy) {
+		enemy->update(camera.Position);
+	}
 
 	std::vector<Bullet*>::iterator bullet;
 	for (bullet = player.GetCurrentWeapon()->CurrentBullets()->begin(); bullet != player.GetCurrentWeapon()->CurrentBullets()->end(); ++bullet) {

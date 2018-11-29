@@ -22,14 +22,17 @@
 #include <weapon.h>
 using namespace std;
 
-const float angleFactor = 70.0f;
-const float pistolPosYDiff = 0.0090f;
-const float movSpeed = 0.002f;
+const float ANGLE_FACTOR = 70.0f;
+const float PISTOL_POSY_DIFF = 0.0090f;
+const float MOV_SPEED = 0.002f;
+const float INCREMENT_FIRE_TIMER = 0.01f;
+const float MAX_VALUE_TIMER = 1.0f;
 
-Enemy::Enemy() {
-	this->initialPosition = glm::vec3(0, 0, 0);
-	this->finalPosition = glm::vec3(0, 0, 0);
+
+Enemy::Enemy(){
+
 }
+
 Enemy::Enemy(string modelName,Weapon* weapon,glm::vec3 initialPosition) {
 	Mesh(new Model(modelName));
 	Mesh()->ComputeData();
@@ -42,6 +45,8 @@ Enemy::Enemy(string modelName,Weapon* weapon,glm::vec3 initialPosition) {
 		glm::scale(glm::mat4(1.0f), glm::vec3(0.00008f, 0.00008f, 0.00008f));
 
 	InitialModelMat(enemyModel);
+
+	this->fireTimer = 0.0f;
 }
 
 Enemy::Enemy(string modelName,Weapon* weapon,glm::vec3 initialPosition,bool followPlayer) {
@@ -56,6 +61,7 @@ Enemy::Enemy(string modelName,Weapon* weapon,glm::vec3 initialPosition,bool foll
 		glm::scale(glm::mat4(1.0f), glm::vec3(0.00008f, 0.00008f, 0.00008f));
 
 	InitialModelMat(enemyModel);
+	this->fireTimer = 0.0f;
 }
 
 void Enemy::setWeapon(Weapon* weapon){
@@ -80,8 +86,8 @@ void Enemy::renderEnemyBullet(Shader* mainShader){
 
 void Enemy::renderEnemyWeapon(float angle, Shader* mainShader){
 	glm::mat4 modWeapon =
-		glm::translate(glm::mat4(1.0f), glm::vec3(this->initialPosition.x, this->initialPosition.y + pistolPosYDiff, this->initialPosition.z)) * //llevar pistola junto a la posicion de la camara
-		glm::rotate(glm::mat4(1.0f), glm::radians(-90.0f + angle*angleFactor), glm::vec3(0.0f, 1.0f, 0.0f));  //con rotacion para seguir al jugador
+		glm::translate(glm::mat4(1.0f), glm::vec3(this->initialPosition.x, this->initialPosition.y + PISTOL_POSY_DIFF, this->initialPosition.z)) * //llevar pistola junto a la posicion de la camara
+		glm::rotate(glm::mat4(1.0f), glm::radians(-90.0f + angle*ANGLE_FACTOR), glm::vec3(0.0f, 1.0f, 0.0f));  //con rotacion para seguir al jugador
 	this->weapon->UpdatePosition(modWeapon);
 	this->weapon->render(mainShader);
 }
@@ -94,7 +100,7 @@ void Enemy::renderEnemy(glm::vec3 playerPosition, Shader* mainShader){
 
 	glm::mat4 enemyModel =
 		glm::translate(glm::mat4(1.0f), glm::vec3(this->initialPosition.x, this->initialPosition.y, this->initialPosition.z)) *
-		glm::rotate(glm::mat4(1.0f), glm::radians(angle*angleFactor), glm::vec3(0.0f, 1.0f, 0.0f))*
+		glm::rotate(glm::mat4(1.0f), glm::radians(angle*ANGLE_FACTOR), glm::vec3(0.0f, 1.0f, 0.0f))*
 		glm::scale(glm::mat4(1.0f), glm::vec3(0.00008f, 0.00008f, 0.00008f));
 	
 	ModelMat(enemyModel);
@@ -105,11 +111,19 @@ void Enemy::renderEnemy(glm::vec3 playerPosition, Shader* mainShader){
 }
 
 void Enemy::update(glm::vec3 playerPos){
+
 	if (this->followPlayer){
 		glm::vec3 direction = playerPos - this->initialPosition;
-		this->initialPosition.x += direction.x*movSpeed;
-		this->initialPosition.z += direction.z*movSpeed;
+		this->initialPosition.x += direction.x*MOV_SPEED;
+		this->initialPosition.z += direction.z*MOV_SPEED;
 	}
+	
+	this->fireTimer += INCREMENT_FIRE_TIMER;
+	if (this->fireTimer >= MAX_VALUE_TIMER){
+		this->fireTimer = 0.0f;
+		fire(playerPos);
+	}
+
 	updateBulletsPosition();
 }
 
@@ -131,7 +145,7 @@ void Enemy::updateBulletsPosition(){
 
 void Enemy::fire(glm::vec3 positionPlayer)
 {
-	glm::vec3 position = glm::vec3(this->initialPosition.x, this->initialPosition.y + pistolPosYDiff, this->initialPosition.z);
+	glm::vec3 position = glm::vec3(this->initialPosition.x, this->initialPosition.y + PISTOL_POSY_DIFF, this->initialPosition.z);
 	glm::vec3 direction = positionPlayer - position;
 	weapon->Fire(position, direction,0.008f);
 }

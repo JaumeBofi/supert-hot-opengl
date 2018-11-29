@@ -18,10 +18,9 @@
 #include <map>
 #include <vector>
 #include <cfloat>
+#include <coldet.h>
 
 using namespace std;
-
-
 
 
 class Model
@@ -30,6 +29,9 @@ public:
 	/*  Model Data */
 	vector<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
 	vector<Mesh> meshes;
+	vector<CollisionModel3D*> collisionModels;	
+
+
 	string directory;
 	bool gammaCorrection;
 	glm::vec3 centroid;
@@ -46,6 +48,10 @@ public:
 	// draws the model, and thus all its meshes
 	void Draw(Shader shader);
 	void  ComputeData();
+	void ComputeCollisionModel();
+	bool checkColisions(Model* model);
+	float* getFloatArrayFromMat4(glm::mat4);
+	void UpdateCollisionModel(glm::mat4);
 
 private:
 	/*  Functions   */
@@ -61,6 +67,7 @@ private:
 	// checks all material textures of a given type and loads the textures if they're not loaded yet.
 	// the required info is returned as a Texture struct.
 	vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, string typeName);
+	
 };
 
 

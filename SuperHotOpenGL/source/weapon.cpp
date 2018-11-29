@@ -6,7 +6,7 @@
 Weapon::Weapon(string modelName,string bulletModelName, int clipSize)
 {
 	Mesh(new Model(modelName));
-	Mesh()->ComputeData();
+	Mesh()->ComputeData();	
 	_bulletMesh = new Model(bulletModelName);
 	_bulletMesh->ComputeData();
 	_clipSize = clipSize;
@@ -18,8 +18,8 @@ Weapon::Weapon(string modelName,string bulletModelName, int clipSize)
 	InitialModelMat(initialModel);
 }
 
-void Weapon::UpdatePosition(glm::mat4 model)
-{
+void Weapon::UpdatePosition(Model* scene,glm::mat4 model)
+{	
 	ModelMat(model*InitialModelMat());
 }
 
@@ -28,7 +28,7 @@ Bullet* Weapon::Fire(glm::vec3 initialPosition, glm::vec3 direction)
 	//if (_currentBullets.size() >= _clipSize) return NULL;
 	_hasFired = true;
 	
-	Bullet* newBullet = new Bullet(_bulletMesh,initialPosition, direction, true, true, 0.0003f);
+	Bullet* newBullet = new Bullet(_bulletMesh,initialPosition, direction, true, true, 0.0006f);
 	_currentBullets.push_back(newBullet);
 	return newBullet;
 }

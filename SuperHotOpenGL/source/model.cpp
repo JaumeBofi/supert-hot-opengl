@@ -17,6 +17,8 @@
 #include <vector>
 #include <cfloat>
 #include <model.h>
+#include "coldet.h"
+#include <glm/gtc/type_ptr.hpp>
 
 using namespace std;
 
@@ -24,9 +26,9 @@ unsigned int TextureFromFile(const char *path, const string &directory, bool gam
 {
 	string filename = string(path);
 	//filename = directory + '/' + filename;
-
+	
 	unsigned int textureID;
-	glGenTextures(1, &textureID);
+	glGenTextures(1, &textureID);	
 
 	int width, height, nrComponents;
 	std::cout << "Filename:" << filename << std::endl;
@@ -253,3 +255,52 @@ vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType type,
 	return textures;
 }
 
+void Model::ComputeCollisionModel()
+{
+	for (auto& mesh : meshes)
+	{
+		CollisionModel3D* collisionModel = newCollisionModel3D();
+		collisionModels.push_back(collisionModel);
+		for(int i = 0;i<mesh.indices.size();)
+		{
+			collisionModel->addTriangle(mesh.vertices[mesh.indices[i]].Position.x, mesh.vertices[mesh.indices[i]].Position.y, mesh.vertices[mesh.indices[i]].Position.z,
+				mesh.vertices[mesh.indices[i+1]].Position.x, mesh.vertices[mesh.indices[i+1]].Position.y, mesh.vertices[mesh.indices[i+1]].Position.z,
+				mesh.vertices[mesh.indices[i+2]].Position.x, mesh.vertices[mesh.indices[i+2]].Position.y, mesh.vertices[mesh.indices[i+2]].Position.z);
+			i += 3;
+		}					
+
+		collisionModel->finalize();
+	}
+}
+
+
+bool Model::checkColisions(Model* model)
+{
+	for (auto& collisionObject1 : collisionModels)
+	{
+		for (auto& collisionObject2 : model->collisionModels)
+		{
+			if (collisionObject1->collision(collisionObject2)) return true;
+		}
+	}
+	return false;
+}
+
+float* Model::getFloatArrayFromMat4(glm::mat4 pMat4)
+{
+	float* dArray = new float[16]();
+
+	const float *pSource = (const float*)glm::value_ptr(pMat4);
+	for (int i = 0; i < 16; ++i)
+		dArray[i] = pSource[i];
+
+	return dArray;
+}
+
+void Model::UpdateCollisionModel(glm::mat4 mat4)
+{
+	for (auto& collisionObject : collisionModels)
+	{		
+		collisionObject->setTransform(getFloatArrayFromMat4(mat4));
+	}
+}

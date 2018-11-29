@@ -6,7 +6,7 @@
 #include <worldObject.h>
 #include <player.h>
 #include <math.h>
-
+#define EPSILON 0.001
 
 
 Player::Player(glm::vec3 position,Camera* camera)
@@ -27,8 +27,11 @@ Weapon* Player::GetCurrentWeapon()
 	return _weapons[_currentWeapon];
 }
 
-void Player::UpdatePosition()
+void Player::UpdatePosition(Model* scene)
 {
+	glm::vec3 v = Position() - _currentCamera->Position;
+	hasMoved = !(glm::all(glm::lessThan(glm::abs(v), glm::vec3(EPSILON))));	
+	hasMoved = Position() != _currentCamera->Position;	
 	Position(_currentCamera->Position);
 	Weapon* currentWeapon = GetCurrentWeapon();
 
@@ -39,7 +42,7 @@ void Player::UpdatePosition()
 		glm::rotate(glm::mat4(1.0f), glm::radians(-_currentCamera->Yaw), _currentCamera->Up)*		
 		glm::rotate(glm::mat4(1.0f), glm::radians(_currentCamera->Pitch), _currentCamera->Right);
 								
-	currentWeapon->UpdatePosition(modelWeapon);	
+	currentWeapon->UpdatePosition(scene,modelWeapon);	
 }
 
 void Player::Fire()

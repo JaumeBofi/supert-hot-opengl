@@ -38,6 +38,7 @@ Bullet::Bullet(Model* bulletMesh,glm::vec3 currentPosition, glm::vec3 currentDir
 	_isMoving = isMoving;	
 	glm::mat4 initialModelMat = glm::rotate(glm::mat4(1.0f), glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)) * glm::scale(glm::mat4(1.0f), glm::vec3(0.00002f, 0.00002f, 0.00002f));
 	InitialModelMat(initialModelMat);
+	ModelMat(initialModelMat);
 }
 
 void Bullet::UpdatePosicion()

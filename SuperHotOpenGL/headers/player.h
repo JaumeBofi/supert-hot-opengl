@@ -21,7 +21,8 @@ public:
 	Weapon* GetCurrentWeapon();
 	glm::vec3 Position() const { return _position; }
 	void Position(glm::vec3 val) { _position = val; }	
+	bool hasMoved = false;
 
-	void UpdatePosition();
+	void UpdatePosition(Model* scene);
 	void Fire();
 };

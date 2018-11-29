@@ -37,6 +37,7 @@ private:
 	glm::vec3 finalPosition;
 	std::list<Bala> listaBalas;
 	bool followPlayer;
+	float fireTimer;
 	Weapon* weapon;
 
 public:

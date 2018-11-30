@@ -50,6 +50,8 @@ public:
 	void  ComputeData();
 	void ComputeCollisionModel();
 	bool checkColisions(Model* model);
+	bool checkColisions(CollisionModel3D* model);
+	CollisionModel3D* checkColisionsReturnCollision(Model* model);
 	float* getFloatArrayFromMat4(glm::mat4);
 	void UpdateCollisionModel(glm::mat4);
 

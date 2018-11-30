@@ -286,6 +286,28 @@ bool Model::checkColisions(Model* model)
 	return false;
 }
 
+bool Model::checkColisions(CollisionModel3D* model)
+{
+	for (auto& collisionObject1 : collisionModels)
+	{		
+		if (collisionObject1->collision(model)) return true;	
+	}
+	return false;
+}
+
+
+CollisionModel3D* Model::checkColisionsReturnCollision(Model* model)
+{
+	for (auto& collisionObject1 : collisionModels)
+	{
+		for (auto& collisionObject2 : model->collisionModels)
+		{
+			if (collisionObject1->collision(collisionObject2)) return collisionObject2;
+		}
+	}
+	return NULL;
+}
+
 float* Model::getFloatArrayFromMat4(glm::mat4 pMat4)
 {
 	float* dArray = new float[16]();

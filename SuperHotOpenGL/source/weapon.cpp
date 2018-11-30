@@ -18,7 +18,7 @@ Weapon::Weapon(string modelName,string bulletModelName, int clipSize)
 	InitialModelMat(initialModel);
 }
 
-void Weapon::UpdatePosition(Model* scene,glm::mat4 model)
+void Weapon::UpdatePosition(glm::mat4 model)
 {	
 	ModelMat(model*InitialModelMat());
 }

@@ -13,6 +13,8 @@ private:
 	glm::vec3 _position;
 	int _currentWeapon;
 	Camera* _currentCamera;
+	float defaultJump = 0.005f;
+	
 
 public:
 
@@ -22,7 +24,7 @@ public:
 	glm::vec3 Position() const { return _position; }
 	void Position(glm::vec3 val) { _position = val; }	
 	bool hasMoved = false;
-
+	bool hasJumped = false;
 	void UpdatePosition(Model* scene);
 	void Fire();
 };

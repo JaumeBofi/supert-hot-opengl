@@ -44,7 +44,7 @@ public:
 	
 	vector<Bullet*>* CurrentBullets() { return &_currentBullets; }
 
-	void UpdatePosition(Model* scene,glm::mat4 model);
+	void UpdatePosition(glm::mat4 model);
 	Bullet* Fire(glm::vec3 initialPosition,glm::vec3 direction);
 	Bullet* Weapon::Fire(glm::vec3 initialPosition, glm::vec3 direction, float velocity);
 };

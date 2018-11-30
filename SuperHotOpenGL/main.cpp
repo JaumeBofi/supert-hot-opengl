@@ -12,10 +12,15 @@
 #include "Enemy.h"
 #include <list>
 #include <player.h>
+#include "btBulletDynamicsCommon.h"
+#include <ComplexPhysicsObject.h>
+#include "coldet.h"
+
 
 // Settings
 Settings settings = Settings();
 Shader* mainShader;
+Model* sceneBound;
 Model* scene;
 
 
@@ -51,8 +56,15 @@ Model* modelBala;
 
 //Test Enemy
 Model* modelEnemy;
-std::list<Enemy> enemiesList;
+vector<Enemy*> enemies;
 
+// Colision Detection
+
+btDefaultCollisionConfiguration * collisionConfiguration;
+btCollisionDispatcher* dispatcher;
+btBroadphaseInterface* overlappingPairCache;
+btSequentialImpulseConstraintSolver* solver;
+btDiscreteDynamicsWorld* dynamicsWorld;
 
 void display() {
 	glClearColor(1.0, 0.0, 0.0, 0.1);
@@ -68,27 +80,61 @@ void display() {
 bool init_resources()
 {
 	mainShader = new Shader((settings.ShadersDirectory() + "super_hot.vs").c_str(), (settings.ShadersDirectory() + "super_hot.fs").c_str());
+	sceneBound = new Model("Cube.obj");
+	sceneBound->ComputeData();
 	scene = new Model("Arc170.obj");
 	scene->ComputeData();
-	
+	scene->ComputeCollisionModel();
+	glm::mat4 mod =
+		glm::rotate(glm::mat4(1.0f), glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)) *
+		glm::scale(glm::mat4(1.0f), glm::vec3(scene->scale, scene->scale, scene->scale)) *
+		glm::translate(glm::mat4(1.0f), glm::vec3(-scene->centroid.x, -scene->centroid.y, -scene->centroid.z)); // translate it down so it's at the center of the scene
+	;	// it's a bit too big for our scene, so scale it down
+	scene->UpdateCollisionModel(mod);	
+
+	player.Mesh(new Model("Cube.obj"));
+	player.Mesh()->ComputeData();
+	player.Mesh()->ComputeCollisionModel();
 	player.AddWeapon(new Weapon("deagle.obj","bowlingball.obj", 10));
 
-	Enemy enemy1 = Enemy("mercenary.obj", new Weapon("deagle.obj", "bowlingball.obj", 10), glm::vec3(-0.239149f, -0.0430f, -0.022f));
-	Enemy enemy2 = Enemy("mercenary.obj", new Weapon("deagle.obj", "bowlingball.obj", 10), glm::vec3(-0.103743, -0.0430f, 0.149888));
-	Enemy enemy3 = Enemy("mercenary.obj", new Weapon("deagle.obj", "bowlingball.obj", 10), glm::vec3(-0.029067, -0.0430f, -0.107453), true);
 
-	enemiesList.push_back(enemy1);
-	enemiesList.push_back(enemy2);
-	enemiesList.push_back(enemy3);
+	Enemy* enemy1 = new Enemy("mercenary.obj", new Weapon("deagle.obj", "bowlingball.obj", 10), glm::vec3(-0.239149f, -0.0430f, -0.022f));
+	Enemy* enemy2 = new Enemy("mercenary.obj", new Weapon("deagle.obj", "bowlingball.obj", 10), glm::vec3(-0.103743, -0.0430f, 0.149888), true);
 
+	enemies.push_back(enemy1);
+	enemies.push_back(enemy2);
+		
 	camera.Position = initialPosition;
+	
+	///collision configuration contains default setup for memory, collision setup. Advanced users can create their own configuration.
+	collisionConfiguration = new btDefaultCollisionConfiguration();
+
+	///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
+	dispatcher = new btCollisionDispatcher(collisionConfiguration);
+
+	///btDbvtBroadphase is a good general purpose broadphase. You can also try out btAxis3Sweep.
+	overlappingPairCache = new btDbvtBroadphase();
+
+	///the default constraint solver. For parallel processing you can use a different solver (see Extras/BulletMultiThreaded)
+	solver = new btSequentialImpulseConstraintSolver;
+
+	dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
+
+	dynamicsWorld->setGravity(btVector3(0, -10, 0));
+
+
 	return true;	
 }
+
 
 void onDisplay() {
 	
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+	dynamicsWorld->stepSimulation(1.f / 60.f, 10);
+
 
 	// don't forget to enable shader before setting uniforms
 	mainShader->use();
@@ -107,48 +153,77 @@ void onDisplay() {
 		glm::translate(glm::mat4(1.0f), glm::vec3(-scene->centroid.x, -scene->centroid.y, -scene->centroid.z)); // translate it down so it's at the center of the scene
 	;	// it's a bit too big for our scene, so scale it down
 
+
 	glm::mat3 mat_inv_transp = glm::transpose(glm::inverse(glm::mat3(mod)));
 	mainShader->setMat3("m_3x3", mat_inv_transp);
 	mainShader->setVec3("mat_specular", glm::vec3(1.0, 1.0, 1.0));
 	mainShader->setFloat("mat_s", 100);
 
-	mainShader->setMat4("model", mod);
+	mainShader->setMat4("model", mod);	
 	scene->Draw(*mainShader);
+	mod = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f));
+	mainShader->setMat4("model", mod);
+	sceneBound->Draw(*mainShader);
 
-	player.UpdatePosition();
+	player.UpdatePosition(scene);
 	player.GetCurrentWeapon()->render(mainShader);	
+	//player.render(mainShader);
 	
+	vector<Bullet*> bulletsHit;
 		
 	std::vector<Bullet*>::iterator bullet;
 	for (bullet = player.GetCurrentWeapon()->CurrentBullets()->begin(); bullet != player.GetCurrentWeapon()->CurrentBullets()->end(); ++bullet) {
-
-		/*glm::mat4 modBala = bala->render();
-		glm::mat3 mat_inv_transp2 = glm::transpose(glm::inverse(glm::mat3(modBala)));
-		mainShader->setMat3("m_3x3", mat_inv_transp2);
-		mainShader->setVec3("mat_specular", glm::vec3(1.0, 1.0, 1.0));
-		mainShader->setFloat("mat_s", 100);
-
-		mainShader->setMat4("model", modBala);
-		modelBala->Draw(*mainShader);;*/
-		try
+		Enemy* enemyHit = NULL;
+		std::vector<Enemy*>::iterator enemy;
+		for (enemy = enemies.begin(); enemy != enemies.end(); ++enemy) {
+			if ((*enemy)->Mesh()->checkColisions((*bullet)->Mesh()))
+			{
+				enemyHit = (*enemy);
+				break;
+			}
+		}
+		
+		if (enemyHit != NULL)
 		{
-			(*bullet)->UpdatePosicion();
+			bulletsHit.push_back((*bullet));
+			enemies.erase(std::remove(enemies.begin(), enemies.end(), enemyHit), enemies.end());
+		}
+		else
+		{
+			if (player.hasMoved)
+			{
+				(*bullet)->UpdatePosicion();
+			}
 			(*bullet)->render(mainShader);
 		}
-		catch (const std::exception &exc)
-		{
-			// catch anything thrown within try block that derives from std::exception
-			printf(exc.what());			
-		}	
 	}
-
-	std::list<Enemy>::iterator enemy;
-	for (enemy = enemiesList.begin(); enemy != enemiesList.end(); ++enemy) {
-		enemy->renderEnemy(camera.Position,mainShader);
+	
+	for (bullet = bulletsHit.begin(); bullet != bulletsHit.end(); ++bullet) {
+		player.GetCurrentWeapon()->CurrentBullets()->erase(std::remove(player.GetCurrentWeapon()->CurrentBullets()->begin(), player.GetCurrentWeapon()->CurrentBullets()->end(), *bullet), player.GetCurrentWeapon()->CurrentBullets()->end());
 	}	
 
-	printf("\nPosX: %f PosZ: %f\n", camera.Position.x, camera.Position.z);
+	std::vector<Enemy*>::iterator enemy;
+	for (enemy = enemies.begin(); enemy != enemies.end(); ++enemy) {
+		Weapon* weapon = (*enemy)->CurrentWeapon();
+		std::vector<Bullet*>::iterator bullet;
+		for (bullet = weapon->CurrentBullets()->begin(); bullet != weapon->CurrentBullets()->end(); ++bullet) {
 
+			try
+			{
+				if (player.hasMoved)
+				{
+					(*bullet)->UpdatePosicion();
+				}
+				(*bullet)->render(mainShader);
+			}
+			catch (const std::exception &exc)
+			{
+				printf(exc.what());
+			}
+		}
+		(*enemy)->renderEnemy(camera.Position, mainShader);
+	}
+	
 	glutSwapBuffers();
 }
 
@@ -173,15 +248,11 @@ void mouseMovement(int xpos, int ypos) {
 }
 void onClick(int button, int state, int x, int y) {
 	switch (button) {
-	case GLUT_LEFT_BUTTON:
-		/*Bala bala = Bala(camera.Position,glm::vec3(0,0,0),camera.Front,true,true,true);
-		listaBalas.push_back(bala);	*/	
-
-		std::list<Enemy>::iterator enemy;
-		for (enemy = enemiesList.begin(); enemy != enemiesList.end(); ++enemy) {
-			enemy->fire(camera.Position);
-		}
-
+	case GLUT_LEFT_BUTTON:		
+		std::vector<Enemy*>::iterator enemy;
+		/*for (enemy = enemies.begin(); enemy != enemies.end(); ++enemy) {
+			(*enemy)->fire(player.Position());
+		}		*/
 		player.Fire();
 		break;
 	}
@@ -213,8 +284,7 @@ void keyboardInput(unsigned char keycode, int x, int y) {
 			}
 			
 		}
-		else  {
-			printf("%d\n", deltaTime);
+		else  {			
 			switch (keycode)
 			{
 			case 's': // Escape key
@@ -229,47 +299,39 @@ void keyboardInput(unsigned char keycode, int x, int y) {
 			case 'd': // Escape key
 				camera.ProcessKeyboard(RIGHT, deltaTime);
 				break;
+			case 32: // Escape key			
+				player.hasJumped = true;
+				break;			
 			case 27: // Escape key			
 				exit(EXIT_SUCCESS);
 				break;
 			}
 			
 		}
-		/*pistolax = camera.Position.x;
-		pistolay = camera.Position.y;
-		pistolaz = camera.Position.z;*/
 	
 		glutPostRedisplay();						
 }
 
 float t = 0;
 void onIdle()
-{
-	/*int timeSinceStart = glutGet(GLUT_ELAPSED_TIME);	
-	deltaTime = timeSinceStart - oldTimeSinceStart;
-	oldTimeSinceStart = timeSinceStart;*/
+{	
 	t = t + 0.000002;
-
-
-	std::list<Enemy>::iterator enemy;
-	for (enemy = enemiesList.begin(); enemy != enemiesList.end(); ++enemy) {
-		enemy->update(camera.Position);
-	}
+	if (player.hasMoved)
+	{
+		std::vector<Enemy*>::iterator enemy;
+		for (enemy = enemies.begin(); enemy != enemies.end(); ++enemy) {
+			(*enemy)->update(camera.Position);
+		}
+	}		
 
 	std::vector<Bullet*>::iterator bullet;
-	for (bullet = player.GetCurrentWeapon()->CurrentBullets()->begin(); bullet != player.GetCurrentWeapon()->CurrentBullets()->end(); ++bullet) {
-
-		/*glm::mat4 modBala = bala->render();
-		glm::mat3 mat_inv_transp2 = glm::transpose(glm::inverse(glm::mat3(modBala)));
-		mainShader->setMat3("m_3x3", mat_inv_transp2);
-		mainShader->setVec3("mat_specular", glm::vec3(1.0, 1.0, 1.0));
-		mainShader->setFloat("mat_s", 100);
-
-		mainShader->setMat4("model", modBala);
-		modelBala->Draw(*mainShader);;*/
+	for (bullet = player.GetCurrentWeapon()->CurrentBullets()->begin(); bullet != player.GetCurrentWeapon()->CurrentBullets()->end(); ++bullet) {		
 		try
 		{
-			(*bullet)->UpdatePosicion();
+			if (player.hasMoved)
+			{				
+				(*bullet)->UpdatePosicion();
+			}
 		}
 		catch (const std::exception &exc)
 		{
@@ -318,10 +380,7 @@ int main(int argc, char* argv[]) {
 	glutDisplayFunc(onDisplay);	
 	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
-	
-	
-
-	
+			
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glutKeyboardFunc(keyboardInput);
 	glutPassiveMotionFunc(mouseMovement);

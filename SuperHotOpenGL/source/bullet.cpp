@@ -45,4 +45,5 @@ void Bullet::UpdatePosicion()
 {
 	_currentPosition += _currentDirection * _velocity ;
 	ModelMat(glm::translate(glm::mat4(1.0f), _currentPosition)*InitialModelMat());
+	Mesh()->UpdateCollisionModel(glm::translate(glm::mat4(1.0f), _currentPosition)*InitialModelMat());
 }

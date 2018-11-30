@@ -165,7 +165,7 @@ void onDisplay() {
 		if (enemyHit != NULL)
 		{
 			bulletsHit.push_back((*bullet));
-			enemies.erase(std::remove(enemies.begin(), enemies.end(), enemyHit), enemies.end());
+			enemyHit->setDead();
 		}
 		else
 		{
@@ -201,6 +201,7 @@ void onDisplay() {
 			}
 		}
 		(*enemy)->renderEnemy(camera.Position, mainShader);
+		//enemies.erase(std::remove(enemies.begin(), enemies.end(), *enemy), enemies.end());
 	}
 	
 	glutSwapBuffers();

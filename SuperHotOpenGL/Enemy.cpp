@@ -48,6 +48,7 @@ Enemy::Enemy(string modelName,Weapon* weapon,glm::vec3 initialPosition) {
 	InitialModelMat(enemyModel);
 
 	this->fireTimer = 0.0f;
+	this->dead = false;
 }
 
 Enemy::Enemy(string modelName,Weapon* weapon,glm::vec3 initialPosition,bool followPlayer) {
@@ -64,6 +65,7 @@ Enemy::Enemy(string modelName,Weapon* weapon,glm::vec3 initialPosition,bool foll
 
 	InitialModelMat(enemyModel);
 	this->fireTimer = 0.0f;
+	this->dead = false;
 }
 
 void Enemy::setWeapon(Weapon* weapon){
@@ -99,23 +101,41 @@ void Enemy::renderEnemy(glm::vec3 playerPosition, Shader* mainShader){
 	float dx = playerPosition.x - this->initialPosition.x;
 	float dz = playerPosition.z - this->initialPosition.z;
 	float angle = atan2(-dz, dx);
+	glm::mat4 enemyModel;
+	if(this->dead) {
+		 enemyModel =
+			glm::translate(glm::mat4(1.0f), glm::vec3(this->initialPosition.x, this->initialPosition.y, this->initialPosition.z)) *
+			glm::rotate(glm::mat4(1.0f), glm::radians(angle*ANGLE_FACTOR), glm::vec3(0.0f, 1.0f, 0.0f))*
+			 glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f))*
+			glm::scale(glm::mat4(1.0f), glm::vec3(0.00008f, 0.00008f, 0.00008f));
+	}
+	else {
+		enemyModel =
+			glm::translate(glm::mat4(1.0f), glm::vec3(this->initialPosition.x, this->initialPosition.y, this->initialPosition.z)) *
+			glm::rotate(glm::mat4(1.0f), glm::radians(angle*ANGLE_FACTOR), glm::vec3(0.0f, 1.0f, 0.0f))*
+			glm::scale(glm::mat4(1.0f), glm::vec3(0.00008f, 0.00008f, 0.00008f));
 
-	glm::mat4 enemyModel =
-		glm::translate(glm::mat4(1.0f), glm::vec3(this->initialPosition.x, this->initialPosition.y, this->initialPosition.z)) *
-		glm::rotate(glm::mat4(1.0f), glm::radians(angle*ANGLE_FACTOR), glm::vec3(0.0f, 1.0f, 0.0f))*
-		glm::scale(glm::mat4(1.0f), glm::vec3(0.00008f, 0.00008f, 0.00008f));
+		
+	}
 	
 	ModelMat(enemyModel);
 	Mesh()->UpdateCollisionModel(enemyModel);
 
 	render(mainShader);
-	renderEnemyWeapon(angle,mainShader);
 	renderEnemyBullet(mainShader);
+
+
+	if (this->dead) {
+		//
+	}
+	else {
+		renderEnemyWeapon(angle, mainShader);
+	}
 }
 
 void Enemy::update(glm::vec3 playerPos){
 
-	if (this->followPlayer){
+	if (this->followPlayer && !this->dead){
 		glm::vec3 direction = playerPos - this->initialPosition;
 		this->initialPosition.x += direction.x*MOV_SPEED;
 		this->initialPosition.z += direction.z*MOV_SPEED;
@@ -156,5 +176,12 @@ void Enemy::fire(glm::vec3 positionPlayer)
 
 Weapon* Enemy::CurrentWeapon() {
 	return this->weapon;
+}
+
+bool Enemy::isDead() {
+	return this->dead;
+}
+void Enemy::setDead() {
+	this->dead = true;
 }
 

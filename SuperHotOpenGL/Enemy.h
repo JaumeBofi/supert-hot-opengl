@@ -37,6 +37,7 @@ private:
 	glm::vec3 finalPosition;
 	std::list<Bala> listaBalas;
 	bool followPlayer;
+	bool dead;
 	float fireTimer;
 	Weapon* weapon;
 
@@ -55,6 +56,8 @@ public:
 	void Enemy::renderEnemy(glm::vec3 playerPosition, Shader* mainShader);
 	void Enemy::fire(glm::vec3 positionPlayer);
 	Weapon* Enemy::CurrentWeapon();
+	bool Enemy::isDead();
+	void Enemy::setDead();
 };
 
 

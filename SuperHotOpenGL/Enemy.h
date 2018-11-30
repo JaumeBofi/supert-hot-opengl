@@ -54,6 +54,7 @@ public:
 	void Enemy::setWeapon(Weapon*);
 	void Enemy::renderEnemy(glm::vec3 playerPosition, Shader* mainShader);
 	void Enemy::fire(glm::vec3 positionPlayer);
+	Weapon* Enemy::CurrentWeapon();
 };
 
 

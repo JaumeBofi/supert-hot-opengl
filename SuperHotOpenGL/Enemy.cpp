@@ -151,3 +151,7 @@ void Enemy::fire(glm::vec3 positionPlayer)
 }
 
 
+Weapon* Enemy::CurrentWeapon() {
+	return this->weapon;
+}
+

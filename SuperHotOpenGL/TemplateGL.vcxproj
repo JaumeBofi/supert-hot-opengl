@@ -17,17 +17,25 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="settings.cpp" />
     <ClCompile Include="Bala.cpp" />
+    <ClCompile Include="source\bullet.cpp" />
     <ClCompile Include="source\camera.cpp" />
     <ClCompile Include="source\model.cpp" />
+    <ClCompile Include="source\player.cpp" />
+    <ClCompile Include="source\weapon.cpp" />
+    <ClCompile Include="source\worldObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bala.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="headers\bullet.h" />
     <ClInclude Include="headers\camera.h" />
     <ClInclude Include="headers\mesh.h" />
     <ClInclude Include="headers\model.h" />
+    <ClInclude Include="headers\player.h" />
     <ClInclude Include="headers\settings.h" />
     <ClInclude Include="headers\shader.h" />
+    <ClInclude Include="headers\weapon.h" />
+    <ClInclude Include="headers\worldObject.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="source\super_hot.fs" />
@@ -71,14 +79,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\GLFW;..\soil\include;..\soil\src;..\assimp-4.1.0\include;..\SuperHotOpenGL\headers;..\glm-0.9.7.3\glm;..\freeglut\include;..\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\temp\ta\supert-hot-opengl\Coldet;..\GLFW;..\soil\include;..\soil\src;..\assimp-4.1.0\include;..\SuperHotOpenGL\headers;..\glm-0.9.7.3\glm;..\freeglut\include;..\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\GLFW;..\assimp-4.1.0\lib;..\freeglut\lib;..\glew-2.1.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;freeglut.lib;assimp-vc120-mt.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\temp\ta\supert-hot-opengl\Coldet;..\GLFW;..\assimp-4.1.0\lib;..\freeglut\lib;..\glew-2.1.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;freeglut.lib;assimp-vc120-mt.lib;glfw3.lib;libcoldet.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

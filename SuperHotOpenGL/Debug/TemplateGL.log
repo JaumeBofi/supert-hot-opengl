@@ -1,14 +1,53 @@
 ﻿d:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(387,5): warning MSB8028: El directorio intermedio (Debug\) contiene archivos compartidos de otro proyecto (TemplateGL.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
+  stb_image_aug.c
+c:\temp\ta\supert-hot-opengl\soil\src\stbi_dds_aug_c.h(362): warning C4018: '>': no coinciden signed/unsigned
+c:\temp\ta\supert-hot-opengl\soil\src\stbi_dds_aug_c.h(366): warning C4018: '>': no coinciden signed/unsigned
+c:\temp\ta\supert-hot-opengl\soil\src\stbi_dds_aug_c.h(390): warning C4018: '<': no coinciden signed/unsigned
+c:\temp\ta\supert-hot-opengl\soil\src\stbi_dds_aug_c.h(427): warning C4018: '<': no coinciden signed/unsigned
+  image_helper.c
+c:\temp\ta\supert-hot-opengl\soil\src\image_helper.c(325): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+c:\temp\ta\supert-hot-opengl\soil\src\image_helper.c(366): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+c:\temp\ta\supert-hot-opengl\soil\src\image_helper.c(373): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\temp\ta\supert-hot-opengl\soil\src\image_helper.c(415): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+c:\temp\ta\supert-hot-opengl\soil\src\image_helper.c(422): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+  Generando código...
+  worldObject.cpp
+c:\temp\ta\supert-hot-opengl\superhotopengl\headers\shader.h(64): warning C4101: 'infoLog': variable local sin referencia
+c:\temp\ta\supert-hot-opengl\superhotopengl\headers\shader.h(63): warning C4101: 'success': variable local sin referencia
+  weapon.cpp
+c:\temp\ta\supert-hot-opengl\superhotopengl\headers\shader.h(64): warning C4101: 'infoLog': variable local sin referencia
+c:\temp\ta\supert-hot-opengl\superhotopengl\headers\shader.h(63): warning C4101: 'success': variable local sin referencia
+  player.cpp
+c:\temp\ta\supert-hot-opengl\superhotopengl\headers\shader.h(64): warning C4101: 'infoLog': variable local sin referencia
+c:\temp\ta\supert-hot-opengl\superhotopengl\headers\shader.h(63): warning C4101: 'success': variable local sin referencia
+c:\temp\ta\supert-hot-opengl\superhotopengl\source\player.cpp(36): warning C4305: 'argumento': truncamiento de 'double' a 'const float'
+  model.cpp
+c:\temp\ta\supert-hot-opengl\superhotopengl\headers\shader.h(64): warning C4101: 'infoLog': variable local sin referencia
+c:\temp\ta\supert-hot-opengl\superhotopengl\headers\shader.h(63): warning C4101: 'success': variable local sin referencia
+c:\temp\ta\supert-hot-opengl\superhotopengl\source\model.cpp(86): warning C4018: '<': no coinciden signed/unsigned
+c:\temp\ta\supert-hot-opengl\superhotopengl\source\model.cpp(108): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+c:\temp\ta\supert-hot-opengl\superhotopengl\source\model.cpp(264): warning C4018: '<': no coinciden signed/unsigned
+  camera.cpp
+c:\temp\ta\supert-hot-opengl\superhotopengl\source\camera.cpp(68): warning C4244: 'return': conversión de 'double' a 'float'; posible pérdida de datos
+  bullet.cpp
+c:\temp\ta\supert-hot-opengl\superhotopengl\headers\shader.h(64): warning C4101: 'infoLog': variable local sin referencia
+c:\temp\ta\supert-hot-opengl\superhotopengl\headers\shader.h(63): warning C4101: 'success': variable local sin referencia
+  Bala.cpp
+c:\temp\ta\supert-hot-opengl\superhotopengl\headers\shader.h(64): warning C4101: 'infoLog': variable local sin referencia
+c:\temp\ta\supert-hot-opengl\superhotopengl\headers\shader.h(63): warning C4101: 'success': variable local sin referencia
+  settings.cpp
   main.cpp
-c:\temp\tagraf\supert-hot-opengl\superhotopengl\headers\shader.h(64): warning C4101: 'infoLog': variable local sin referencia
-c:\temp\tagraf\supert-hot-opengl\superhotopengl\headers\shader.h(63): warning C4101: 'success': variable local sin referencia
-c:\temp\tagraf\supert-hot-opengl\superhotopengl\main.cpp(48): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
-c:\temp\tagraf\supert-hot-opengl\superhotopengl\main.cpp(194): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-c:\temp\tagraf\supert-hot-opengl\superhotopengl\main.cpp(195): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-c:\temp\tagraf\supert-hot-opengl\superhotopengl\main.cpp(202): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-c:\temp\tagraf\supert-hot-opengl\superhotopengl\main.cpp(203): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-c:\temp\tagraf\supert-hot-opengl\superhotopengl\main.cpp(227): warning C4477: 'printf' : la cadena de formato '%d' requiere un argumento de tipo 'int', pero el argumento variádico 1 tiene el tipo 'double'
-c:\temp\tagraf\supert-hot-opengl\superhotopengl\main.cpp(249): warning C4477: 'printf' : la cadena de formato '%d' requiere un argumento de tipo 'int', pero el argumento variádico 1 tiene el tipo 'double'
-c:\temp\tagraf\supert-hot-opengl\superhotopengl\main.cpp(289): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-  TemplateGL.vcxproj -> C:\temp\TAGRAF\supert-hot-opengl\Debug\SuperHotOpenGL.exe
-  TemplateGL.vcxproj -> C:\temp\TAGRAF\supert-hot-opengl\Debug\SuperHotOpenGL.pdb (Partial PDB)
+c:\temp\ta\supert-hot-opengl\superhotopengl\headers\shader.h(64): warning C4101: 'infoLog': variable local sin referencia
+c:\temp\ta\supert-hot-opengl\superhotopengl\headers\shader.h(63): warning C4101: 'success': variable local sin referencia
+c:\temp\ta\supert-hot-opengl\superhotopengl\main.cpp(64): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
+c:\temp\ta\supert-hot-opengl\superhotopengl\main.cpp(211): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+c:\temp\ta\supert-hot-opengl\superhotopengl\main.cpp(212): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+c:\temp\ta\supert-hot-opengl\superhotopengl\main.cpp(219): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+c:\temp\ta\supert-hot-opengl\superhotopengl\main.cpp(220): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+c:\temp\ta\supert-hot-opengl\superhotopengl\main.cpp(295): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+  Enemy.cpp
+c:\temp\ta\supert-hot-opengl\superhotopengl\headers\shader.h(64): warning C4101: 'infoLog': variable local sin referencia
+c:\temp\ta\supert-hot-opengl\superhotopengl\headers\shader.h(63): warning C4101: 'success': variable local sin referencia
+  Generando código...
+  TemplateGL.vcxproj -> C:\temp\ta\supert-hot-opengl\Debug\SuperHotOpenGL.exe
+  TemplateGL.vcxproj -> C:\temp\ta\supert-hot-opengl\Debug\SuperHotOpenGL.pdb (Partial PDB)

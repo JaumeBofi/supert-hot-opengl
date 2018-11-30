@@ -69,6 +69,18 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Archivos de código fuente\Model</Filter>
     </ClCompile>
+    <ClCompile Include="source\bullet.cpp">
+      <Filter>Archivos de código fuente\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="source\player.cpp">
+      <Filter>Archivos de código fuente\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="source\weapon.cpp">
+      <Filter>Archivos de código fuente\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="source\worldObject.cpp">
+      <Filter>Archivos de código fuente\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\settings.h">
@@ -90,6 +102,18 @@
       <Filter>Archivos de encabezado\Model</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
+      <Filter>Archivos de encabezado\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\bullet.h">
+      <Filter>Archivos de encabezado\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\player.h">
+      <Filter>Archivos de encabezado\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\weapon.h">
+      <Filter>Archivos de encabezado\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\worldObject.h">
       <Filter>Archivos de encabezado\Model</Filter>
     </ClInclude>
   </ItemGroup>

@@ -93,10 +93,12 @@ bool init_resources()
 
 
 	Enemy* enemy1 = new Enemy("mercenary.obj", new Weapon("deagle.obj", "bowlingball.obj", 10), glm::vec3(-0.239149f, -0.0430f, -0.022f));
-	Enemy* enemy2 = new Enemy("mercenary.obj", new Weapon("deagle.obj", "bowlingball.obj", 10), glm::vec3(-0.103743, -0.0430f, 0.149888), true);
+	Enemy* enemy2 = new Enemy("mercenary.obj", new Weapon("deagle.obj", "bowlingball.obj", 10), glm::vec3(-0.103743, -0.0430f, 0.149888));
+	Enemy* enemy3 = new Enemy("mercenary.obj", new Weapon("deagle.obj", "bowlingball.obj", 10), glm::vec3(-0.029067, -0.0430f, -0.107453), true);
 
 	enemies.push_back(enemy1);
 	enemies.push_back(enemy2);
+	enemies.push_back(enemy3);
 		
 	camera.Position = initialPosition;
 
@@ -227,9 +229,9 @@ void onClick(int button, int state, int x, int y) {
 	switch (button) {
 	case GLUT_LEFT_BUTTON:		
 		std::vector<Enemy*>::iterator enemy;
-		/*for (enemy = enemies.begin(); enemy != enemies.end(); ++enemy) {
+		for (enemy = enemies.begin(); enemy != enemies.end(); ++enemy) {
 			(*enemy)->fire(player.Position());
-		}		*/
+		}       
 		player.Fire();
 		break;
 	}

@@ -30,7 +30,7 @@ Bullet::Bullet() {
 }
 
 Bullet::Bullet(Model* bulletMesh,glm::vec3 currentPosition, glm::vec3 currentDirection, bool shot, bool isMoving,float velocity) {
-	Mesh(bulletMesh);		
+	Mesh(bulletMesh);			
 	_currentPosition = currentPosition + 0.005f*currentDirection;
 	_currentDirection = currentDirection;
 	_velocity = velocity;

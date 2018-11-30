@@ -24,7 +24,7 @@ using namespace std;
 
 const float ANGLE_FACTOR = 70.0f;
 const float PISTOL_POSY_DIFF = 0.0090f;
-const float MOV_SPEED = 0.002f;
+const float MOV_SPEED = 0.02f;
 const float INCREMENT_FIRE_TIMER = 0.01f;
 const float MAX_VALUE_TIMER = 1.0f;
 
@@ -36,6 +36,7 @@ Enemy::Enemy(){
 Enemy::Enemy(string modelName,Weapon* weapon,glm::vec3 initialPosition) {
 	Mesh(new Model(modelName));
 	Mesh()->ComputeData();
+	Mesh()->ComputeCollisionModel();
 	this->initialPosition = initialPosition;
 	this->finalPosition = finalPosition;
 	this->followPlayer = false;
@@ -52,6 +53,7 @@ Enemy::Enemy(string modelName,Weapon* weapon,glm::vec3 initialPosition) {
 Enemy::Enemy(string modelName,Weapon* weapon,glm::vec3 initialPosition,bool followPlayer) {
 	Mesh(new Model(modelName));
 	Mesh()->ComputeData();
+	Mesh()->ComputeCollisionModel();
 	this->initialPosition = initialPosition;
 	this->finalPosition = finalPosition;
 	this->followPlayer = followPlayer;
@@ -104,6 +106,7 @@ void Enemy::renderEnemy(glm::vec3 playerPosition, Shader* mainShader){
 		glm::scale(glm::mat4(1.0f), glm::vec3(0.00008f, 0.00008f, 0.00008f));
 	
 	ModelMat(enemyModel);
+	Mesh()->UpdateCollisionModel(enemyModel);
 
 	render(mainShader);
 	renderEnemyWeapon(angle,mainShader);
